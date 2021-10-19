@@ -17,7 +17,7 @@
                     accusamus dolorum consectetur.</p>
             </div>
             <div class="w-1/2 image">
-                <img src="{{ asset('img/mobile.png') }}" alt="">
+                <img src="{{ asset('images/mobile.png') }}" alt="">
             </div>
         </div>
     </div>

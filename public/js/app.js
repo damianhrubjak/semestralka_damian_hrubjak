@@ -2097,7 +2097,15 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
   \******************************/
 /***/ (() => {
 
-
+var hamburgerBtn = document.querySelector("#hamburger-btn");
+var navWrapper = document.querySelector("#nav-wrapper-id");
+var menuItems = document.querySelector(".nav-items");
+window.addEventListener("DOMContentLoaded", function () {
+  document.body.style.setProperty("--menu-height", navWrapper.offsetHeight + menuItems.offsetHeight + 10 + "px");
+});
+hamburgerBtn.addEventListener("click", function () {
+  navWrapper.classList.toggle("expand");
+});
 
 /***/ }),
 

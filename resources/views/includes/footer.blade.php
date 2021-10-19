@@ -1,9 +1,9 @@
 <section class="footer">
     <section class="page-section bg-gray-800 py-7">
-        <div class="page-wrapper grid grid-cols-3 gap-4">
+        <div class="page-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div class="w-full">
                 @include('includes.logo',['color' => 'text-white'])
-                <h5 class="mt-6 text-lg text-white font-bold font-secondary uppercase">
+                <h5 class="mt-10 md:mt-6 text-lg text-white font-bold font-secondary uppercase">
                     We are company
                 </h5>
                 <p class="mr-auto w-11/12 text-gray-400 mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -14,7 +14,7 @@
                     natus, cupiditate ducimus.</p>
             </div>
             <div class="w-full">
-                <h5 class="mt-6 text-lg text-white font-bold font-secondary uppercase">
+                <h5 class="mt-10 md:mt-6 text-lg text-white font-bold font-secondary uppercase">
                     Brief Contact
                 </h5>
 
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="w-full">
-                <h5 class="mt-6 text-lg text-white font-bold font-secondary uppercase">
+                <h5 class="mt-10 md:mt-6 text-lg text-white font-bold font-secondary uppercase">
                     Menu Links
                 </h5>
 
@@ -85,11 +85,11 @@
         </div>
     </section>
     <section class="page-section bg-gray-900 py-4">
-        <div class="page-wrapper flex justify-between">
+        <div class="page-wrapper flex justify-between flex-col sm:flex-row">
             <p class="text-gray-400">
                 &#169; 2021. All Rights Reserved. <small class="text-2xs">Just kidding</small>
             </p>
-            <p class="text-gray-400">
+            <p class="text-gray-400 mt-2 sm:mt-0">
                 Created by Damián Hrubják
             </p>
 

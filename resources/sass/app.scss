@@ -3,6 +3,14 @@
 body {
     font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
         Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji !important;
+    --menu-height: 100px;
+}
+.nav-wrapper {
+    max-height: 72px;
+    transition: 0.3s;
+}
+.nav-wrapper.expand {
+    max-height: var(--menu-height);
 }
 
 .nav-item .nav-link-line {
@@ -15,7 +23,6 @@ body {
 }
 
 .nav-item {
-    margin-left: 1rem;
     &:nth-child(1) {
         margin-left: 0;
     }
@@ -50,4 +57,35 @@ body {
 }
 .menu-link-footer-wrapper.active .menu-link-footer {
     color: $tw-gray-100;
+}
+
+.who-we-are-image {
+    clip-path: polygon(0 71%, 16% 5%, 52% 31%, 98% 13%, 89% 83%, 41% 100%);
+}
+
+.section-blur-heading {
+    text-shadow: 0 3px 27px rgb(0 0 0 / 15%);
+}
+
+.cta-button:hover {
+    background-color: $tw-violet-700;
+    border-color: $tw-violet-700;
+    color: white;
+}
+.ghost-button:hover {
+    background-color: $tw-indigo-500;
+    border-color: $tw-indigo-500;
+    color: white;
+}
+.products-sections {
+    background-color: #81c1752b;
+}
+
+.product-item-homepage .image:hover {
+    img {
+        filter: brightness(0.5);
+    }
+    .buy-button {
+        opacity: 1;
+    }
 }

@@ -20,9 +20,29 @@
         position: relative;
     }
     .page-wrapper {
-        width: 75%;
+        width: calc(100% - 40px);
         max-width: 1300px;
         margin: 0 auto;
+    }
+    @media screen and (min-width: 768px) {
+        .page-wrapper {
+            width: 90%;
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        .page-wrapper {
+            width: 85%;
+        }
+    }
+    @media screen and (min-width: 1280px) {
+        .page-wrapper {
+            width: 85%;
+        }
+    }
+    @media screen and (min-width: 1536px) {
+        .page-wrapper {
+            width: 75%;
+        }
     }
 
     .pallete-green-bg {
@@ -34,13 +54,47 @@
 }
 
 @layer components {
+    .nav-wrapper {
+        @apply w-full py-4 flex justify-between items-center flex-wrap sm:flex-nowrap;
+    }
+    .nav-items {
+        @apply flex mt-4 sm:mt-0 w-full sm:w-auto flex-col sm:flex-row items-end md:items-center;
+    }
     .nav-item {
-        @apply transition duration-300 rounded-md py-2 px-4;
+        @apply transition duration-300 rounded-md py-2 px-4 mt-2 ml-0 sm:ml-4 sm:mt-0;
     }
     .nav-link {
         @apply text-lg font-secondary text-gray-800 font-bold transition duration-300;
     }
     .nav-link-line {
         @apply w-0 h-1 rounded-full mx-auto mb-1 opacity-0 shadow-xl;
+    }
+    .cta-button,
+    .ghost-button {
+        @apply border-2 text-gray-900 border-purple-300 font-secondary rounded-md py-3 px-10 text-lg font-bold transition duration-300;
+    }
+    .cta-button {
+        @apply bg-purple-300 hover:shadow-xl;
+    }
+    .ghost-button {
+        @apply border-2 border-purple-300 hover:shadow-xl;
+    }
+    .product-item-homepage {
+        @apply w-full xs:w-3/4 sm:w-full shadow-lg rounded-lg mx-auto;
+    }
+    .product-item-homepage .image {
+        @apply h-72 flex items-center justify-center;
+    }
+    .product-item-homepage .image img {
+        @apply w-full h-full object-cover transition duration-300 rounded-t-lg;
+    }
+    .product-item-homepage .image .buy-button {
+        @apply absolute transition duration-300 opacity-0;
+    }
+    .product-item-homepage .text {
+        @apply rounded-b-lg bg-white  p-6;
+    }
+    .product-item-homepage .text .heading-product {
+        @apply font-bold text-2xl my-4;
     }
 }

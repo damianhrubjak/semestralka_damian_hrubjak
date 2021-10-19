@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::name('fe-pages.')->group(function () {
+    Route::get('/', function () {
+        return view('home');
+    })->name("home");
+    Route::get('/about-us', function () {
+        return view('about-us');
+    })->name("about-us");
+    Route::get('/contact', function () {
+        return view('contact');
+    })->name("contact");
 });

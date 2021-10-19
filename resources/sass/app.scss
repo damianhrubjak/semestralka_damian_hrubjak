@@ -1,0 +1,53 @@
+@import "./variables.scss";
+
+body {
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+        Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji !important;
+}
+
+.nav-item .nav-link-line {
+    transition: width 0.3s, opacity 0.3s, background-color 0.3s;
+}
+.nav-item.active .nav-link-line {
+    opacity: 1;
+    width: 15px;
+    background-color: $tw-violet-500;
+}
+
+.nav-item {
+    margin-left: 1rem;
+    &:nth-child(1) {
+        margin-left: 0;
+    }
+    &:hover {
+        background-color: $tw-violet-500;
+        .nav-link-line {
+            background-color: white;
+            opacity: 1;
+            width: 35px;
+        }
+        .nav-link {
+            color: white;
+        }
+    }
+}
+
+.menu-link-footer-wrapper {
+    .ball,
+    .menu-link-footer {
+        transition: 0.3s;
+    }
+    &:hover {
+        cursor: pointer;
+        .menu-link-footer {
+            color: $tw-gray-100;
+        }
+        .ball {
+            opacity: 1;
+            width: 25px;
+        }
+    }
+}
+.menu-link-footer-wrapper.active .menu-link-footer {
+    color: $tw-gray-100;
+}

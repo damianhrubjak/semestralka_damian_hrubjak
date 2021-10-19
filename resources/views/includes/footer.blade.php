@@ -68,9 +68,9 @@
                             <div class="ball w-2 h-1 bg-gray-100 rounded-full opacity-0 transform translate-x-2"></div>
                         </div>
                         <div
-                            class="menu-link-footer-wrapper flex items-center {{ Request::routeIs('fe-pages.about-us') ? 'active' : "" }}">
-                            <a href="{{ route('fe-pages.about-us') }}"
-                                class="menu-link-footer text-gray-400 block mt-1 text-xl font-secondary">About Us</a>
+                            class="menu-link-footer-wrapper flex items-center {{ Request::routeIs('fe-pages.products') ? 'active' : "" }}">
+                            <a href="{{ route('fe-pages.products') }}"
+                                class="menu-link-footer text-gray-400 block mt-1 text-xl font-secondary">Products</a>
                             <div class="ball w-2 h-1 bg-gray-100 rounded-full opacity-0 transform translate-x-2"></div>
                         </div>
                         <div

@@ -89,3 +89,18 @@ body {
         opacity: 1;
     }
 }
+
+.banner-other-pages-bg {
+    min-height: 400px;
+    background: linear-gradient(
+            90deg,
+            rgba($tw-indigo-800, 0.7) 0%,
+            rgba($tw-indigo-800, 0.7) 100%
+        ),
+        url("/images/banner-bck.jpg");
+    background-position: center;
+    background-size: cover;
+    .go-home-link:hover .link-text {
+        transform: translateX(10px);
+    }
+}

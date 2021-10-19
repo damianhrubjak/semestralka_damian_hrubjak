@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title','Hi')
+@section('title',@env('APP_NAME') .' - Home')
 
 @section('content')
 <section class="page-section pallete-green-bg py-12 lg:py-24">
     <div class="page-wrapper">
-        <div class="flex flex-col-reverse md:flex-row items-center justify-center">
+        <div class="w-full flex flex-col-reverse md:flex-row items-center justify-center">
             <div class="w-full md:w-1/2 text pr-6">
                 <h1 class="text-4xl md:text-6xl font-bold font-secondary ">Welcome</h1>
                 <h2 class="text-lg md:text-xl mt-4">Hope, u are doing well...</h2>
@@ -18,7 +18,7 @@
                     Laudantium quod, quasi iusto hic vitae deserunt quisquam dicta nemo mollitia? Obcaecati placeat amet
                     accusamus dolorum consectetur.</p>
             </div>
-            <div class="w-full max-w-sm md:w-1/2 image">
+            <div class="w-full max-w-sm md:max-w-none md:w-1/2 image">
                 <img src="{{ asset('images/mobile.png') }}" alt="">
             </div>
         </div>
@@ -27,8 +27,6 @@
 
 <section class="page-section py-12 lg:py-24">
     <div class="page-wrapper relative">
-        {{-- <p class=" absolute right-0 bottom-0 text-9xl text-white section-blur-heading uppercase font-bold">Who We are
-        </p> --}}
         <div class="flex flex-col lg:flex-row items-center justify-center">
             <div class="w-full md:w-3/4 lg:w-1/2 text lg:pr-6 relative">
                 <h2 class="text-4xl md:text-5xl font-bold font-secondary ">Who we <span
@@ -36,7 +34,7 @@
                 </h2>
                 <div class="w-48 xl:w-96 h-1 bg-purple-500 relative xl:absolute right-0 mt-4 -mr-36 rounded-3xl z-10">
                 </div>
-                <h2 class="text-xl mt-4">Actually, I don't know</h2>
+                <h3 class="text-xl mt-4">Actually, I don't know</h3>
                 <p class="mt-4 text-lg w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere corrupti
                     totam
                     voluptate
@@ -61,6 +59,7 @@
                 <img src="{{ asset('images/people.jpg') }}" alt="">
             </div>
         </div>
+
     </div>
 </section>
 

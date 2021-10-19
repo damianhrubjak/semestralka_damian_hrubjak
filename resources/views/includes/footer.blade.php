@@ -1,5 +1,5 @@
-<section class="footer">
-    <section class="page-section bg-gray-800 py-7">
+<div class="footer">
+    <div class="page-section bg-gray-800 py-7">
         <div class="page-wrapper grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div class="w-full">
                 @include('includes.logo',['color' => 'text-white'])
@@ -21,8 +21,8 @@
                 <div class="brief-contact mt-4">
                     <p class="text-gray-400 mt-1 block">Somewhere 846/465, Big City</p>
                     <p class="text-gray-400 mt-1 block">64445 Big City, Big State</p>
-                    <a class="text-gray-200 mt-3 block">random@email.com</a>
-                    <a class="text-gray-200 mt-1 block">+1 6969 420 132</a>
+                    <a href="mailto:random@email.com" class="text-gray-200 mt-3 block">random@email.com</a>
+                    <a href="tel:+16969420132" class="text-gray-200 mt-1 block">+1 6969 420 132</a>
                     <div class="text-gray-400 mt-3 block">
                         <span class="text-gray-400">
                             Mon-Thu:
@@ -83,8 +83,8 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="page-section bg-gray-900 py-4">
+    </div>
+    <div class="page-section bg-gray-900 py-4">
         <div class="page-wrapper flex justify-between flex-col sm:flex-row">
             <p class="text-gray-400">
                 &#169; 2021. All Rights Reserved. <small class="text-2xs">Just kidding</small>
@@ -94,5 +94,5 @@
             </p>
 
         </div>
-    </section>
-</section>
+    </div>
+</div>

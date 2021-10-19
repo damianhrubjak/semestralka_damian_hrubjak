@@ -1,4 +1,4 @@
-<section class="page-section shadow-lg">
+<div class="page-section shadow-lg">
     <div class="page-wrapper">
         <nav class="nav-wrapper" id="nav-wrapper-id">
             <a href="{{ route('fe-pages.home') }}">
@@ -23,4 +23,4 @@
             </div>
         </nav>
     </div>
-</section>
+</div>

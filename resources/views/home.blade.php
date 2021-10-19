@@ -3,7 +3,7 @@
 @section('title',@env('APP_NAME') .' - Home')
 
 @section('content')
-<section class="page-section pallete-green-bg py-12 lg:py-24">
+<div class="page-section pallete-green-bg py-12 lg:py-24">
     <div class="page-wrapper">
         <div class="w-full flex flex-col-reverse md:flex-row items-center justify-center">
             <div class="w-full md:w-1/2 text pr-6">
@@ -23,9 +23,9 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<section class="page-section py-12 lg:py-24">
+<div class="page-section py-12 lg:py-24">
     <div class="page-wrapper relative">
         <div class="flex flex-col lg:flex-row items-center justify-center">
             <div class="w-full md:w-3/4 lg:w-1/2 text lg:pr-6 relative">
@@ -61,9 +61,9 @@
         </div>
 
     </div>
-</section>
+</div>
 
-<section class="page-section py-12 lg:py-24  bg-gray-100">
+<div class="page-section py-12 lg:py-24  bg-gray-100">
     <div class="page-wrapper relative">
 
         <div class="heading text-center">
@@ -111,8 +111,8 @@
             </div>
         </div>
     </div>
-</section>
-<section class="page-section py-12 lg:py-24">
+</div>
+<div class="page-section py-12 lg:py-24">
     <div class="page-wrapper flex justify-between items-center flex-col-reverse md:flex-row">
         <div class="w-full md:w-3/5 md:mr-6 mt-8 md:mt-0">
             <h2 class="text-3xl md:text-4xl font-bold font-secondary">Don't worry, we don't bite</h2>
@@ -131,5 +131,5 @@
             </p>
         </div>
     </div>
-</section>
+</div>
 @endsection

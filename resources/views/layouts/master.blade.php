@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 
     <head>
         <meta charset="UTF-8" />
@@ -23,15 +23,16 @@
 
     </head>
 
-    <main>
-        @include('includes.menu')
-        @yield('content')
-        @include('includes.footer')
-    </main>
+    <body>
+        <main>
+            @include('includes.menu')
+            @yield('content')
+            @include('includes.footer')
+        </main>
 
-    <div class="js-scripts">
-        <script defer src="{{ mix('js/app.js') }}"></script>
-    </div>
+        <div class="js-scripts">
+            <script defer src="{{ mix('js/app.js') }}"></script>
+        </div>
     </body>
 
 </html>

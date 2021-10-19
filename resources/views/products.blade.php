@@ -3,12 +3,11 @@
 @section('title', @env('APP_NAME') . ' - Products we sell')
 
 @section('content')
+
 @include('includes.banner-other-pages',['heading'=>'Products we
 sell','linkToHomeUrl'=>route('fe-pages.home'),'linkToHomeText'=>'Home'])
 
-
-
-<section class="page-section py-12 lg:py-24">
+<div class="page-section py-12 lg:py-24">
     <div class="page-wrapper">
         <h2 class="text-4xl md:text-5xl font-bold font-secondary text-right">Our sortiment</h2>
         <div class="w-40 h-1 mt-4 ml-auto mr-0 bg-indigo-500 rounded-3xl z-10"></div>
@@ -329,11 +328,10 @@ sell','linkToHomeUrl'=>route('fe-pages.home'),'linkToHomeText'=>'Home'])
                 </div>
             </div>
         </div>
-
-
     </div>
-</section>
-<section class="page-section product-brands-we-sell py-12 lg:py-18">
+</div>
+
+<div class="page-section product-brands-we-sell py-12 lg:py-18">
     <div class="page-wrapper flex justify-between items-center flex-wrap mt-12">
         <div class="brand-we-sell">
             <i class="ri-android-line"></i>
@@ -357,9 +355,9 @@ sell','linkToHomeUrl'=>route('fe-pages.home'),'linkToHomeText'=>'Home'])
             <i class="ri-apple-line"></i>
         </div>
     </div>
-</section>
+</div>
 
-<section class="page-section py-12 lg:py-24">
+<div class="page-section py-12 lg:py-24">
     <div class="page-wrapper">
         <h2 class="text-4xl md:text-5xl font-bold font-secondary ">Why choose us ?</h2>
         <h3 class="text-xl mt-4">Actually, I don't know, but u you definitely should</h3>
@@ -412,7 +410,7 @@ sell','linkToHomeUrl'=>route('fe-pages.home'),'linkToHomeText'=>'Home'])
             </div>
         </div>
     </div>
-</section>
+</div>
 
 
 

@@ -16,4 +16,12 @@ mix.js("resources/js/app.js", "public/js")
         require("tailwindcss"),
     ])
     .sass("resources/sass/app.scss", "public/css")
+    // ADMIN
+    .js("resources/js/admin/admin-app.js", "public/js")
+    .postCss(
+        "resources/css/admin/tailwind-admin.css",
+        "public/css/admin-app.css",
+        [require("tailwindcss")]
+    )
+    .sass("resources/sass/admin/admin-app.scss", "public/css")
     .disableSuccessNotifications();

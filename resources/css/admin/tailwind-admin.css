@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    p,
+    span,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        @apply text-gray-800;
+    }
+    .font-secondary {
+        font-family: "Comfortaa";
+    }
+}
+@layer components {
+    .admin-content {
+        @apply w-[calc(100%-20rem)] mr-0 ml-auto pt-2 pl-2;
+    }
+    .side-menu-bottom-link {
+        @apply block text-xl font-bold font-secondary text-blue-gray-200;
+    }
+    .menu-items {
+        @apply p-3;
+    }
+    .menu-item {
+        @apply flex items-center justify-start p-3 rounded-md bg-blue-gray-700 transition duration-300 mt-3 first:mt-0;
+    }
+    .menu-item.active {
+        @apply bg-orange-300;
+    }
+    .menu-item.active .icon,
+    .menu-item.active .text {
+        @apply text-gray-800;
+    }
+    .menu-item .icon,
+    .menu-item .text {
+        @apply text-gray-100 transition duration-300;
+    }
+    .menu-item .icon {
+        @apply text-2xl w-8;
+    }
+    .menu-item .text {
+        @apply text-xl;
+    }
+}

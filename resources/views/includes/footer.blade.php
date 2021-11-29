@@ -89,6 +89,16 @@
             <p class="text-gray-400">
                 &#169; 2021. All Rights Reserved. <small class="text-2xs">Just kidding</small>
             </p>
+
+            <div>
+                @auth
+                <a href="{{ route('admin.home') }}" class="bottom-footer-link">
+                    Back to admin</a>
+                @else
+                <a href="{{ route('auth.login.create') }}" class="bottom-footer-link">Login</a>
+                @endauth
+            </div>
+
             <p class="text-gray-400 mt-2 sm:mt-0">
                 Created by Damián Hrubják
             </p>

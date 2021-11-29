@@ -1,0 +1,14 @@
+@import "../variables.scss";
+
+body {
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+        Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji !important;
+}
+
+.menu-item:hover {
+    background-color: $tw-blue-gray-200;
+    .text,
+    .icon {
+        color: $tw-blue-gray-800;
+    }
+}

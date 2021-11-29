@@ -104,3 +104,17 @@ body {
         transform: translateX(10px);
     }
 }
+
+.input-style {
+    border-color: $tw-blue-gray-400;
+    border-width: 2px;
+}
+.input-control:hover .input-style,
+.input-control:focus-within .input-style {
+    border-color: $tw-purple-500;
+}
+
+.purple-shadow {
+    box-shadow: 0 20px 25px -5px rgba($color: $tw-purple-600, $alpha: 0.1),
+        0 10px 10px -5px rgba($color: $tw-purple-600, $alpha: 0.1);
+}

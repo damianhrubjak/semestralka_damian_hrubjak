@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +25,10 @@ Route::name('fe-pages.')->group(function () {
         return view('contact');
     })->name("contact");
 });
+
+
+//* AUTH
+require __DIR__ . '/auth.php';
+
+//* Admin
+require __DIR__ . '/admin.php';

@@ -29,7 +29,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->company(),
             'parameters' => $this->faker->catchPhrase(),
             'condition' => $this->faker->randomElement(['New', 'Used', 'Refurbished', 'Damaged']),
-            'price' => $this->faker->randomFloat(3, 0, 10000),
+            'price' => $this->faker->randomFloat(2, 0, 10000),
             'description' => $this->faker->text(500)
         ];
     }

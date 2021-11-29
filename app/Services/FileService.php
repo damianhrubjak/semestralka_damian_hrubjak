@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+
 use App\Models\File;
 use App\Models\FileExtension;
-use Error;
 use Illuminate\Contracts\Cache\Store;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -28,6 +28,7 @@ class FileService
      * !folder $folderToStore is created in storage/app/..
      * @return File returns File Model on success 
      */
+    // todo make it work
     public function storeFile($fileToBeUploaded, $folderToStore, $foreignKeyCollumn, $foreignKeyId,  $fileName = "", $thumbnail = true, $thumbnailDimensions = [600, 600 * 0.5625], $thumbnailQuality = 70)
     {
         // returns absolute path to folder, including c:/.../laravel/storage/app/ etc.
@@ -37,9 +38,7 @@ class FileService
             $foreignKeyCollumn => $foreignKeyId,
             'name' => $fileToBeUploaded->getClientOriginalName(),
             'file_name' => empty($fileName) ? $this->fileNameHash($extension) : $fileName,
-            'extension' => $extension,
-            'mime_type' => $fileToBeUploaded->getMimeType(),
-            'size' => $fileToBeUploaded->getSize(),
+            'folder_name' => $folderToStore
         ];
 
         $fileToBeUploaded->storeAs(

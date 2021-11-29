@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -15,15 +18,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::name('fe-pages.')->group(function () {
-    Route::get('/', function () {
-        return view('home');
-    })->name("home");
-    Route::get('/products', function () {
-        return view('products');
-    })->name("products");
-    Route::get('/contact', function () {
-        return view('contact');
-    })->name("contact");
+    Route::get('/', [PagesController::class, 'homePage'])->name("home");
+    Route::get('/products', [ProductController::class, 'indexFrontEnd'])->name("products.index-fe");
+    Route::view('/contact', 'contact')->name("contact");
+});
+
+Route::name('files.')->group(function () {
+    Route::get('/thumbnail-image/{file}', [FileController::class, 'showFile'])->name('show-file');
+    Route::get('/image/{file}', [FileController::class, 'showFileFullResolution'])->name('show-file-full-resolution');
 });
 
 

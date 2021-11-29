@@ -72,43 +72,10 @@
             <p class="mt-4 text-lg">Choose and buy one, if you like it. Or just BUY IT!! </p>
         </div>
 
-        <div class="products-home-page grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-5 mt-20">
-            <div class="product-item-homepage">
-                <div class="image">
-                    <img src="{{ asset('images/iphone.jpg') }}" alt="">
-                    <button class="buy-button cta-button">BUY</button>
-                </div>
-                <div class="text">
-                    <h3 class="heading-product">Smartphone</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa alias harum minima excepturi.
-                    </p>
-                </div>
-            </div>
-            <div class="product-item-homepage">
-                <div class="image">
-                    <img src="{{ asset('images/pc.jpg') }}" alt="">
-                    <button class="buy-button cta-button">BUY</button>
-                </div>
-                <div class="text">
-                    <h3 class="heading-product">CPU</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa alias harum minima excepturi.
-                    </p>
-                </div>
-            </div>
-            <div class="product-item-homepage">
-                <div class="image">
-                    <img src="{{ asset('images/laptop.jpg') }}" alt="">
-                    <button class="buy-button cta-button">BUY</button>
-                </div>
-                <div class="text">
-                    <h3 class="heading-product">Laptop</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa alias harum minima excepturi.
-                    </p>
-                </div>
-            </div>
+        <div class="products-home-page grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-5 mt-20 items-start">
+            @foreach ($newestProducts as $product)
+            @include('items.product-item-homepage',compact('product'))
+            @endforeach
         </div>
     </div>
 </div>

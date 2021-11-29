@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminUserSeeder;
 
@@ -18,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminUserSeeder::class
         ]);
+        Product::factory(50)->create();
     }
 }

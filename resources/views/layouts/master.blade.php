@@ -32,6 +32,8 @@
 
         <div class="js-scripts">
             <script defer src="{{ mix('js/app.js') }}"></script>
+
+            @yield('scripts')
         </div>
     </body>
 

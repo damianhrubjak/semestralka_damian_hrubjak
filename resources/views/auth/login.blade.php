@@ -15,30 +15,31 @@
         </div>
         <div class="w-full xs:w-5/6 sm:w-2/3 md:w-1/2 flex justify-center items-center mt-12 md:mt-0">
             <div class="flex justify-center items-center flex-col w-full md:w-96 purple-shadow p-4 sm:p-6 rounded-lg ">
+                <div id="error-div"></div>
                 @if ($errors->any())
-                <div class="w-full mb-4 p-4 bg-rose-500 rounded-lg">
-                    <h2 class="text-2xl font-secondary text-white font-bold mb-4">Form is filled wrong
-                    </h2>
-                    <ol class=" list-disc ml-8 text-white">
+                <div class="error-wrapper">
+                    <h2 class="error-wrapper-heading">Form is filled wrong</h2>
+                    <ol class="error-wrapper-list">
                         @foreach ($errors->all() as $error)
                         <li>
-                            <p class="has-text-weight-bold text-white">{{ $error }}</p>
+                            <p class="error-item">{{ $error }}</p>
                         </li>
                         @endforeach
                     </ol>
                 </div>
                 @endif
 
-                <form method="POST" action="{{ route('auth.login.store') }}"
+                <form method="POST" id="login-form" action="{{ route('auth.login.store') }}"
                     class='flex justify-center items-center flex-col w-full '>
                     @csrf
                     <div class="input-control">
-                        <input autocomplete="off" type="text" name="username" value="{{ old('username') }}"
-                            class="w-full input-style" title="Input username" placeholder="Input username">
+                        <input autocomplete="off" type="text" id="username-input" name="username"
+                            value="{{ old('username') }}" class="w-full input-style" title="Input username"
+                            placeholder="Input username">
                     </div>
                     <div class="input-control mt-4">
-                        <input autocomplete="off" type="password" name="password" class="w-full input-style"
-                            title="Input password" placeholder="Input password">
+                        <input autocomplete="off" type="password" id="password-input" name="password"
+                            class="w-full input-style" title="Input password" placeholder="Input password">
 
                     </div>
                     <button type='submit' class="mt-6 w-full cta-button small" title="Log in">Log in</button>
@@ -48,4 +49,8 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script src="{{ mix('js/form-validation.js') }}"></script>
 @endsection

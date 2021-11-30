@@ -1,2 +1,1 @@
-import "./bootstrap";
-import "./main";
+import "./menu-controller";

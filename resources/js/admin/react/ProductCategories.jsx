@@ -5,6 +5,7 @@ import axios from "axios";
 import ProductCategoryItem from "./ProductCategoryItem";
 import Modal from "./Modal";
 import { useForm } from "react-hook-form";
+import FormError from "./FormError";
 
 let deleteId = 0;
 
@@ -14,7 +15,12 @@ function ProductCategories(props) {
     const [isAddModalOpened, setIsAddModalOpened] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
-    const { register, handleSubmit, setFocus } = useForm({
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+        setFocus,
+    } = useForm({
         mode: "onBlur",
     });
 
@@ -22,6 +28,9 @@ function ProductCategories(props) {
         fetchCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    useEffect(() => {
+        console.log(errors);
+    }, [errors]);
 
     const fetchCategories = () => {
         setIsMounted(false);
@@ -141,7 +150,7 @@ function ProductCategories(props) {
                 modalContentClassname={`modal-content-message-format`}
             >
                 <div className="add-product-category-container">
-                    <div className="input-control flex items-center w-full xs:w-[calc(100%-172px)]">
+                    <div className="input-control flex flex-col items-center w-full xs:w-[calc(100%-172px)]">
                         <input
                             type="text"
                             className="input-style border-2 border-blue-gray-600 text-lg"
@@ -150,6 +159,9 @@ function ProductCategories(props) {
                             })}
                             placeholder={"New category"}
                         />
+                        {errors.category?.message.length > 0 && (
+                            <FormError message={errors?.category?.message} />
+                        )}
                     </div>
                     <button
                         type="submit"

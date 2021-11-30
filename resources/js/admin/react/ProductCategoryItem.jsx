@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-
+import FormError from "./FormError";
 function ProductCategoryItem(props) {
     const [isDisabled, setIsDisabled] = useState(true);
 
-    const { register, handleSubmit, setFocus } = useForm({
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+        setFocus,
+    } = useForm({
         mode: "onBlur",
         defaultValues: {
             category: props.productCategory.category,
@@ -39,24 +44,29 @@ function ProductCategoryItem(props) {
 
     return (
         <div className="product-category-item">
-            <div className="input-control flex items-center ml-4 ">
-                <input
-                    type="text"
-                    className="input-style-disabled rounded-r-none w-full"
-                    disabled={isDisabled}
-                    {...register("category", {
-                        required: "This field is required",
-                    })}
-                />
-                <button
-                    type="submit"
-                    className={`product-category-submit-input-btn ${
-                        isDisabled ? "opacity-0" : "opacity-100"
-                    }`}
-                    onClick={handleSubmit(onSubmit)}
-                >
-                    <i className="ri-check-line"></i>
-                </button>
+            <div className="flex flex-col justify-center ml-4 my-2">
+                <div className="input-control flex items-center ">
+                    <input
+                        type="text"
+                        className="input-style-disabled rounded-r-none w-full"
+                        disabled={isDisabled}
+                        {...register("category", {
+                            required: "This field is required",
+                        })}
+                    />
+                    <button
+                        type="submit"
+                        className={`product-category-submit-input-btn ${
+                            isDisabled ? "opacity-0" : "opacity-100"
+                        }`}
+                        onClick={handleSubmit(onSubmit)}
+                    >
+                        <i className="ri-check-line"></i>
+                    </button>
+                </div>
+                {errors.category?.message.length > 0 && (
+                    <FormError message={errors?.category?.message} />
+                )}
             </div>
             <div className="project-category-item-actions">
                 <button

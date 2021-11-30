@@ -150,4 +150,17 @@
     .input-control {
         @apply w-full flex justify-start items-center;
     }
+
+    .error-wrapper {
+        @apply w-full mb-4 p-4 bg-rose-500 rounded-lg transition duration-300;
+    }
+    .error-wrapper-heading {
+        @apply text-2xl font-secondary text-white font-bold mb-4;
+    }
+    .error-wrapper-list {
+        @apply list-disc ml-8 text-white;
+    }
+    .error-item {
+        @apply text-white;
+    }
 }

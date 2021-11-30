@@ -18,6 +18,7 @@ mix.js("resources/js/app.js", "public/js")
     .sass("resources/sass/app.scss", "public/css")
     // ADMIN
     .js("resources/js/admin/admin-app.js", "public/js")
+    .react()
     .postCss(
         "resources/css/admin/tailwind-admin.css",
         "public/css/admin-app.css",

@@ -27,7 +27,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // 
+        $products = Product::with('files', 'productCategory')->orderBy('product_category_id', 'ASC')->get();
+        return view('admin.products-index', compact('products'));
     }
 
     /**

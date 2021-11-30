@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Inspiring;
 
 class AdminPagesController extends Controller
 {
     public function index()
     {
-        return view('admin.home');
+        $quote = Inspiring::quote();
+        return view('admin.home', compact('quote'));
     }
 }

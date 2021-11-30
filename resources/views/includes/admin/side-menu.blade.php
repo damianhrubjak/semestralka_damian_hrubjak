@@ -13,20 +13,22 @@
                 Home
             </p>
         </a>
-        <a class="menu-item" href="{{ route('admin.home') }}">
+        <a class="menu-item {{ Request::routeIs('admin.products*') ? " active" : "" }}"
+            href="{{ route('admin.products.index') }}">
             <p class="icon flex items-center mr-4">
-                <i class="ri-home-line"></i>
+                <i class="ri-lightbulb-flash-line"></i>
             </p>
             <p class="text">
-                Home
+                Products
             </p>
         </a>
-        <a class="menu-item" href="{{ route('admin.home') }}">
+        <a class="menu-item {{ Request::routeIs('admin.product-categories*') ? " active" : "" }}"
+            href="{{ route('admin.product-categories.index') }}">
             <p class="icon flex items-center mr-4">
-                <i class="ri-home-line"></i>
+                <i class="ri-list-settings-line"></i>
             </p>
             <p class="text">
-                Home
+                Products Categories
             </p>
         </a>
     </div>

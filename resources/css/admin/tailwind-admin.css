@@ -18,7 +18,7 @@
 }
 @layer components {
     .admin-content {
-        @apply w-[calc(100%-20rem)] mr-0 ml-auto pt-2 pl-2;
+        @apply w-[calc(100%-20rem)] mr-0 ml-auto p-3;
     }
     .side-menu-bottom-link {
         @apply block text-xl font-bold font-secondary text-blue-gray-200;
@@ -45,5 +45,29 @@
     }
     .menu-item .text {
         @apply text-xl;
+    }
+
+    .product-category-item {
+        @apply bg-indigo-200 shadow-lg rounded-lg;
+    }
+
+    .input-style-disabled {
+        @apply text-xl bg-white rounded-md px-3 py-1 disabled:bg-transparent transition duration-300;
+    }
+    .input-style {
+        @apply w-full relative outline-none p-3 text-gray-800 text-base transition-all duration-300 rounded-md;
+    }
+    .input-control {
+        @apply w-full flex justify-start items-center;
+    }
+    .product-category-item-button {
+        @apply text-white transition duration-300 text-2xl flex items-center;
+    }
+
+    .modal-content {
+        @apply w-3/4 mx-auto rounded-lg p-3 bg-blue-gray-100;
+    }
+    .modal-header {
+        @apply flex justify-between items-center;
     }
 }

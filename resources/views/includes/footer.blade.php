@@ -85,7 +85,7 @@
         </div>
     </div>
     <div class="page-section bg-gray-900 py-4">
-        <div class="page-wrapper flex justify-between flex-col sm:flex-row">
+        <div class="page-wrapper flex justify-between flex-col md:flex-row">
             <p class="text-gray-400">
                 &#169; 2021. All Rights Reserved. <small class="text-2xs">Just kidding</small>
             </p>

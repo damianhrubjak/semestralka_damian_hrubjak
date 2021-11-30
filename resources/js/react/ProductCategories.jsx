@@ -73,10 +73,10 @@ function ProductCategories(props) {
                 isMounted ? "opacity-100" : "opacity-0"
             } transition duration-700`}
         >
-            <div className="flex justify-between">
+            <div className="page-header-with-button">
                 <h1 className="text-4xl font-secondary">Product Categories</h1>
                 <button
-                    className={`rounded-md border-2 border-blue-gray-700 px-6 py-3 transition duration-300 font-secondary font-bold hover:bg-blue-gray-700 hover:text-white`}
+                    className={`add-button-in-header`}
                     onClick={() => {
                         setIsAddModalOpened(true);
                         setFocus("category");
@@ -85,7 +85,7 @@ function ProductCategories(props) {
                     New category
                 </button>
             </div>
-            <div className="grid grid-cols-3 gap-4 mt-8">
+            <div className="product-categories-grid">
                 {productCategories.map((productCategory) => {
                     return (
                         <ProductCategoryItem
@@ -107,9 +107,9 @@ function ProductCategories(props) {
                     deleteId = null;
                     setIsDeleteModalOpened(state);
                 }}
-                modalContentClassname={`w-full md:w-[600px]`}
+                modalContentClassname={`modal-content-message-format`}
             >
-                <div className="flex justify-between w-1/3 mx-auto">
+                <div className="flex justify-between w-3/4 xs:w-1/2 sm:w-1/3 mx-auto">
                     <button
                         className={`py-2 px-6 rounded-md bg-emerald-400`}
                         onClick={() => {
@@ -138,10 +138,10 @@ function ProductCategories(props) {
                 onModalClose={(state) => {
                     setIsAddModalOpened(state);
                 }}
-                modalContentClassname={`w-full md:w-[600px]`}
+                modalContentClassname={`modal-content-message-format`}
             >
-                <div className="w-full mx-auto flex justify-between items-center">
-                    <div className="input-control flex items-center w-[calc(100%-172px)]">
+                <div className="add-product-category-container">
+                    <div className="input-control flex items-center w-full xs:w-[calc(100%-172px)]">
                         <input
                             type="text"
                             className="input-style border-2 border-blue-gray-600 text-lg"
@@ -153,7 +153,7 @@ function ProductCategories(props) {
                     </div>
                     <button
                         type="submit"
-                        className={`transtion duration-300 text-xl py-2 px-6 mx-auto rounded-md bg-emerald-600 text-white flex items-center ml-4 self-stretch`}
+                        className={`modal-submit-btn self-stretch mt-4 xs:mt-0 mx-auto xs:ml-4`}
                         onClick={handleSubmit(onSubmit)}
                     >
                         <i className="ri-check-line"></i>
@@ -175,7 +175,9 @@ export default ProductCategories;
 const productCategoriesEl = document.querySelector(
     "#product-categories-react-mount"
 );
-ReactDOM.render(
-    <ProductCategories fetchUrl={productCategoriesEl.dataset.fetchUrl} />,
-    productCategoriesEl
-);
+if (productCategoriesEl) {
+    ReactDOM.render(
+        <ProductCategories fetchUrl={productCategoriesEl.dataset.fetchUrl} />,
+        productCategoriesEl
+    );
+}

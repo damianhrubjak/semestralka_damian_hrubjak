@@ -38,11 +38,11 @@ function ProductCategoryItem(props) {
     };
 
     return (
-        <div className="product-category-item flex items-stretch justify-between">
+        <div className="product-category-item">
             <div className="input-control flex items-center ml-4 ">
                 <input
                     type="text"
-                    className="input-style-disabled rounded-r-none"
+                    className="input-style-disabled rounded-r-none w-full"
                     disabled={isDisabled}
                     {...register("category", {
                         required: "This field is required",
@@ -50,17 +50,15 @@ function ProductCategoryItem(props) {
                 />
                 <button
                     type="submit"
-                    className={`transtion duration-300 text-xl self-stretch h-[36px] py-1 px-3 my-auto rounded-r-md bg-emerald-600 text-white ${
-                        isDisabled
-                            ? "opacity-0 invisible"
-                            : "opacity-100 visible"
+                    className={`product-category-submit-input-btn ${
+                        isDisabled ? "opacity-0" : "opacity-100"
                     }`}
                     onClick={handleSubmit(onSubmit)}
                 >
                     <i className="ri-check-line"></i>
                 </button>
             </div>
-            <div className="actions p-3 bg-blue-gray-700 rounded-lg text-white flex items-center">
+            <div className="project-category-item-actions">
                 <button
                     onClick={() => {
                         setIsDisabled(!isDisabled);

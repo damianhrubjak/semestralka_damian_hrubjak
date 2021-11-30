@@ -1,10 +1,10 @@
 <!-- MENU -->
-<div class="menu w-80 fixed z-40 top-0 left-0 right-0 h-full flex flex-col bg-blue-gray-800 " id="menu-container">
+<div class="side-menu" id="side-menu-id">
     <div class="p-4 flex justify-center">
         @include('includes.logo',['color' => 'text-white'])
     </div>
 
-    <div class="menu-items mt-48">
+    <div class="menu-items mb-12 mt-24 md:mt-48">
         <a class="menu-item {{ Request::routeIs('admin.home') ? " active" : "" }}" href="{{ route('admin.home') }}">
             <p class="icon flex items-center mr-4">
                 <i class="ri-home-line"></i>
@@ -41,5 +41,7 @@
         </form>
 
     </div>
-
 </div>
+
+
+<button id="floating-menu-button"><i class="ri-menu-3-line pointer-events-none"></i></button>

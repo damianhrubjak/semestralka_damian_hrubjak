@@ -5,6 +5,16 @@ body {
         Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji !important;
 }
 
+.side-menu {
+    transform: translateX(-100%);
+    @media screen and (min-width: 768px) {
+        transform: translateX(0%);
+    }
+}
+.side-menu.expanded {
+    transform: translateX(0%);
+}
+
 .menu-item:hover {
     background-color: $tw-blue-gray-200;
     .text,

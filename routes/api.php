@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoryController;
 
 /*
@@ -17,4 +18,5 @@ use App\Http\Controllers\ProductCategoryController;
 
 Route::name('api.')->middleware(['auth'])->group(function () {
     Route::apiResource('/product-categories', ProductCategoryController::class)->except(['show']);
+    Route::apiResource('/products', ProductController::class);
 });

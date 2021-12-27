@@ -4,6 +4,6 @@
 
 @section('admin-content')
 
-<h1 class="text-4xl font-secondary">Products</h1>
+<div id="products-react-mount" data-fetch-url="{{ route('api.products.index') }}"></div>
 
 @endsection

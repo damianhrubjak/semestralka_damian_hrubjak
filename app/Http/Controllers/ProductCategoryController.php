@@ -19,11 +19,6 @@ class ProductCategoryController extends Controller
         return ProductCategory::all();
     }
 
-    public function showView()
-    {
-        return view('admin.pages.product-categories-index');
-    }
-
     /**
      * Store a newly created resource in storage.
      *

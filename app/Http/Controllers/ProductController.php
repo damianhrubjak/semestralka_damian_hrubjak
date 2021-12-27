@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Resources\ProductCollection;
 
 class ProductController extends Controller
 {
@@ -28,7 +29,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('files', 'productCategory')->orderBy('product_category_id', 'ASC')->get();
-        return view('admin.pages.products-index', compact('products'));
+        // return view('admin.pages.products-index', compact('products'));
+        return new ProductCollection($products);
     }
 
     /**
@@ -50,7 +52,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return $product->load(['files', 'productCategory']);
     }
 
     /**

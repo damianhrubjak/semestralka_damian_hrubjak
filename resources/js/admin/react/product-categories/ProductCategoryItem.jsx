@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import FormError from "./FormError";
+import FormError from "../FormError";
 function ProductCategoryItem(props) {
     const [isDisabled, setIsDisabled] = useState(true);
 

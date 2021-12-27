@@ -1,3 +1,4 @@
 import "./bootstrap";
-import "./react/ProductCategories";
+import "./react/product-categories/ProductCategories";
+import "./react/products/Products";
 import "./menu-expander";

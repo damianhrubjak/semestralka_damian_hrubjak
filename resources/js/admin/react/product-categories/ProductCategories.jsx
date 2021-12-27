@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 import ProductCategoryItem from "./ProductCategoryItem";
-import Modal from "./Modal";
+import Modal from "../Modal";
 import { useForm } from "react-hook-form";
-import FormError from "./FormError";
+import FormError from "../FormError";
 
 let deleteId = 0;
 

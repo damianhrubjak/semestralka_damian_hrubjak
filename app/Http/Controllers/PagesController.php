@@ -10,6 +10,6 @@ class PagesController extends Controller
     public function homePage()
     {
         $newestProducts = Product::with('files')->orderBy('created_at', 'DESC')->take(3)->get();
-        return view('home', compact('newestProducts'));
+        return view('pages.home', compact('newestProducts'));
     }
 }

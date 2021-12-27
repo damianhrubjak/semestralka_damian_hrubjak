@@ -21,7 +21,7 @@ class ProductCategoryController extends Controller
 
     public function showView()
     {
-        return view('admin.product-categories-index');
+        return view('admin.pages.product-categories-index');
     }
 
     /**

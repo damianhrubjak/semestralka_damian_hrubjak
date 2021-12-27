@@ -20,7 +20,7 @@ use App\Http\Controllers\ProductController;
 Route::name('fe-pages.')->group(function () {
     Route::get('/', [PagesController::class, 'homePage'])->name("home");
     Route::get('/products', [ProductController::class, 'indexFrontEnd'])->name("products.index-fe");
-    Route::view('/contact', 'contact')->name("contact");
+    Route::view('/contact', 'pages.contact')->name("contact");
 });
 
 Route::name('files.')->group(function () {

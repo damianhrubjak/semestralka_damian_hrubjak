@@ -11,6 +11,6 @@ class AdminPagesController extends Controller
     public function index()
     {
         $quote = Inspiring::quote();
-        return view('admin.home', compact('quote'));
+        return view('admin.pages.home', compact('quote'));
     }
 }

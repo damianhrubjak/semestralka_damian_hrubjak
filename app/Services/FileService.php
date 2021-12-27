@@ -48,7 +48,7 @@ class FileService
 
         // 16 => 9 ratio = 0.5625
         // 9 => 16 ratio = 1.77777778
-        if ($thumbnail && in_array($extension, FileExtension::returnMimesAsArray()['image'])) {
+        if ($thumbnail) {
             $make =  $fullFolder . $fileData['file_name'];
             $save =  $fullFolder . "thumbnail_" . $fileData['file_name'];
             Image::make($make)->resize($thumbnailDimensions[0], $thumbnailDimensions[1], function ($constraint) {
@@ -81,12 +81,6 @@ class FileService
      */
     public function serveFileForUrl($fileModel, $folderName, $thumbnail = true)
     {
-        // if set to serve thumbnail image, but the file is not image
-
-        if ($thumbnail && !in_array($fileModel->extension, FileExtension::returnMimesAsArray()['image'])) {
-            return abort(400);
-        }
-
         $fileName = $thumbnail ? "thumbnail_" . $fileModel->file_name  : $fileModel->file_name;
 
         $fullPathToFile = Storage::path($folderName . $fileName);
@@ -110,10 +104,6 @@ class FileService
      */
     public function downloadFile($fileModel, $folderName, $thumbnail = true)
     {
-
-        if ($thumbnail && !in_array($fileModel->extension, FileExtension::returnMimesAsArray()['image'])) {
-            return abort(400);
-        }
 
         $fileName = $thumbnail ? "thumbnail_" . $fileModel->file_name : $fileModel->file_name;
 
@@ -153,9 +143,10 @@ class FileService
     {
         $successfulDelete = false;
         $file = Storage::path($folderName . $fileModel->file_name);
-        if (in_array($fileModel->extension, FileExtension::returnMimesAsArray()['image'])) {
-            $fileThumbnail = Storage::path($folderName . "thumbnail_" . $fileModel->file_name);
-        }
+
+
+        $fileThumbnail = Storage::path($folderName . "thumbnail_" . $fileModel->file_name);
+
 
         if (file_exists($file)) {
             if (unlink($file)) {

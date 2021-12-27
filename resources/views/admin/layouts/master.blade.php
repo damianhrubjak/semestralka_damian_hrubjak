@@ -25,7 +25,7 @@
 
     <body>
         <main>
-            @include('includes.admin.side-menu')
+            @include('admin.includes.side-menu')
             <div class="admin-content">
                 @yield('admin-content')
             </div>

@@ -1,4 +1,4 @@
-@extends('layouts.admin-master')
+@extends('admin.layouts.master')
 
 @section('title',@env('APP_NAME') .' - CMS')
 

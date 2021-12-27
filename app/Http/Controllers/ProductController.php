@@ -17,7 +17,7 @@ class ProductController extends Controller
     {
         $productsCategoriesWithProducts = Product::with('files', 'productCategory')->orderBy('product_category_id', 'ASC')->get()->groupBy('productCategory.category');
 
-        return view('products', compact('productsCategoriesWithProducts'));
+        return view('pages.products', compact('productsCategoriesWithProducts'));
     }
 
     /**
@@ -28,17 +28,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('files', 'productCategory')->orderBy('product_category_id', 'ASC')->get();
-        return view('admin.products-index', compact('products'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.pages.products-index', compact('products'));
     }
 
     /**
@@ -59,17 +49,6 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
     {
         //
     }

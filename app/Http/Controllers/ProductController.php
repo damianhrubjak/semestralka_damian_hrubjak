@@ -39,6 +39,18 @@ class ProductController extends Controller
     }
 
     /**
+     * Display a view to show specified product
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showFrontEnd(Request $request, Product $product)
+    {
+        $product  = $product->load('files');
+        // return view('admin.pages.products-index', compact('products'));
+        return view('pages.show-product', compact('product'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

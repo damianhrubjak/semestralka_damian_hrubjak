@@ -1,10 +1,9 @@
 <div class="product-item">
-    <div class="image">
-        <img src="{{ !$product->files->isEmpty() ? route('files.show-file-full-resolution',$product->files->first()->id) : route('files.show-file-full-resolution',1) }}"
-            alt="">
-    </div>
+    <a href="{{ route('fe-pages.products.show-fe',$product->id) }}" class="image">
+        <img src="{{ route('files.show-file',$product->files->first()->id) }}" alt="">
+    </a>
     <div class="text">
-        <h3 class="heading-product">{{ $product->name }}</h3>
+        <a href="{{ route('fe-pages.products.show-fe',$product->id) }}" class="heading-product">{{ $product->name }}</a>
         <div class="parameters">
             <div class="parameter flex items-center">
                 <p class="w-24">
@@ -32,7 +31,8 @@
             </div>
         </div>
         <div class="w-full flex">
-            <button class="ml-auto mr-0 mt-4 cta-button">BUY</button>
+            <a href="{{ route('fe-pages.products.show-fe',$product->id) }}" class="ml-auto mr-0 mt-4 cta-button">Read
+                more</a>
         </div>
     </div>
 </div>

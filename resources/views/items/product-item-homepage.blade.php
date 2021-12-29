@@ -1,11 +1,10 @@
 <div class="product-item-homepage">
     <div class="image">
-        <img src="{{ !$product->files->isEmpty() ? route('files.show-file-full-resolution',$product->files->first()->id) : route('files.show-file-full-resolution',1) }}"
-            alt="">
-        <button class="buy-button cta-button">BUY</button>
+        <img src="{{ route('files.show-file',$product->files->first()->id) }}" alt="">
+        <a href="{{ route('fe-pages.products.show-fe',$product->id) }}" class="buy-button cta-button">Read more</a>
     </div>
     <div class="text">
-        <h3 class="heading-product">{{ $product->name }}</h3>
+        <a href="{{ route('fe-pages.products.show-fe',$product->id) }}" class="heading-product">{{ $product->name }}</a>
         <p>
             {{ addThreeDots($product->description,50) }}
         </p>

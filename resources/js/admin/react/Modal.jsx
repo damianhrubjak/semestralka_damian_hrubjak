@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import {
-    disableBodyScroll,
-    enableBodyScroll,
-    clearAllBodyScrollLocks,
-} from "body-scroll-lock";
+import { lock, unlock, clearBodyLocks } from "tua-body-scroll-lock";
 
 export default function Modal(props) {
     const modalWrapper = React.useRef(null);
@@ -43,7 +39,7 @@ export default function Modal(props) {
 
         //add class open-animation
         timeout1 = setTimeout(() => {
-            enableBodyScroll(modalWrapper.current);
+            lock(modalWrapper.current);
             setOpenAnimationState(true);
         }, 50);
         //add class content-visible
@@ -62,7 +58,9 @@ export default function Modal(props) {
 
         //remove class open-animation
         timeout1 = setTimeout(() => {
-            disableBodyScroll(modalWrapper.current);
+            unlock(modalWrapper.current, {
+                reserveScrollBarGap: true,
+            });
             setOpenAnimationState(false);
         }, props.modalContentOpenDuration + props.pauseBetweenAnimations);
 
@@ -77,7 +75,7 @@ export default function Modal(props) {
     }, [modalState, props, unmountModal]);
 
     const unmountModal = useCallback(() => {
-        clearAllBodyScrollLocks();
+        clearBodyLocks();
     }, []);
 
     return (
@@ -138,6 +136,7 @@ Modal.defaultProps = {
     modalOpenDuration: 300,
     modalContentOpenDuration: 300,
     pauseBetweenAnimations: 200,
+    modalContentClassname: "",
     string: "",
 };
 Modal.whyDidYouRender = true;

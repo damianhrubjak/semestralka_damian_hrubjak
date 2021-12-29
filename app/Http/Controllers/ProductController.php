@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Services\FileService;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\EditProductRequest;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductCompactResource;
 
 class ProductController extends Controller
 {
@@ -39,32 +44,40 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        //
-    }
+        $files = $request->file('files');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        return $product->load(['files', 'productCategory']);
+        $productData = $request->except('files');
+        $productData['user_id'] = auth()->user()->id;
+
+        $newProduct = Product::create($productData);
+
+        $folder = "product_files/product_with_id_" . $newProduct->id . "_files/";
+        foreach ($files as $file) {
+            (new FileService)->storeFile($file, $folder, "product_id", $newProduct->id);
+        }
+
+        return response()->json(['result' => 'success']);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Requests\EditProductRequest  $request
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(EditProductRequest $request, Product $product)
     {
-        //
+        //set all validated data to model
+        foreach ($request->all() as $key => $value) {
+            $product[$key] = $value;
+        }
+        //update model
+        $product->save();
+        //return successful response
+        return response()->json(['result' => 'success', 'product' => new ProductCompactResource($product)]);
     }
 
     /**
@@ -75,6 +88,25 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->load('files');
+
+        if ($product->files()->count() > 0) {
+            $folderName = $product->files()->first()->folder_name;
+        }
+
+        //remove all files attached to file
+        foreach ($product->files as $file) {
+            (new FileService)->deleteFile($file, $file->folder_name);
+        }
+
+        //remove files folder
+        if (!empty($folderName)) {
+            rmdir(Storage::path($folderName));
+        }
+
+        //remove product
+        $product->delete();
+        //return successful response
+        return response()->json(['result' => 'success']);
     }
 }

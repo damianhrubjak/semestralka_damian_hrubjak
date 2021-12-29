@@ -72,6 +72,9 @@
     .modal-submit-btn {
         @apply transition duration-300 text-xl py-2 px-6 rounded-md bg-emerald-600 text-white flex items-center;
     }
+    .modal-submit-btn.edit {
+        @apply bg-orange-400 hover:bg-orange-600;
+    }
     .add-product-category-container {
         @apply w-full mx-auto flex-col xs:flex-row flex justify-between items-center;
     }
@@ -94,12 +97,65 @@
     }
 
     .modal-content {
-        @apply w-3/4 mx-auto rounded-lg p-3 bg-blue-gray-100;
+        @apply w-[calc(100%-32px)] md:w-3/4 mx-auto rounded-lg p-3 bg-blue-gray-100;
     }
     .modal-header {
         @apply flex justify-between items-center;
     }
     .modal-content-message-format {
         @apply w-[calc(100%-32px)] md:w-[600px];
+    }
+
+    .products-wrapper {
+        @apply mt-8;
+    }
+
+    .product-category-wrapper {
+        @apply bg-blue-gray-200 mt-5 first:mt-0 px-3 py-2 xs:p-4 rounded-lg shadow-lg;
+    }
+    .product-category-wrapper-heading {
+        @apply text-xl text-blue-gray-800 mb-4 font-bold font-secondary;
+    }
+    .product-category-products-fetch {
+        @apply grid xl:grid-cols-2 gap-4;
+    }
+
+    .product-item {
+        @apply p-3 bg-white rounded-md flex flex-col xs:flex-row items-center;
+    }
+    .product-item .text {
+        @apply mt-4 xs:mt-0 xs:ml-4 w-full xs:w-1/2;
+    }
+    .product-item-name {
+        @apply text-xl font-medium text-blue-gray-800 mb-8 block;
+    }
+    .product-item .actions {
+        @apply mt-4 rounded-md flex justify-end;
+    }
+    .product-item .action-button {
+        @apply p-2 bg-blue-gray-700 text-white rounded-md w-12 h-12 flex items-center justify-center ml-2 first:ml-0 transition duration-300 text-2xl;
+    }
+    .product-item-text-group {
+        @apply mt-2 first:mt-0;
+    }
+    .product-item-text-group .group-name {
+        @apply text-blue-gray-400 text-sm;
+    }
+    .product-item-text-group .group-content {
+        @apply text-blue-gray-800 text-lg;
+    }
+
+    .product-item .image {
+        @apply w-full xs:w-1/2 h-full;
+    }
+    .product-item .image img {
+        @apply object-cover h-full min-h-[100px] w-full rounded-md;
+    }
+
+    .modal-grid-two-cols {
+        @apply w-full grid xs:grid-cols-2 gap-4;
+    }
+    .input-style.product-style {
+        @apply border-2 border-blue-gray-600 text-lg;
     }
 }

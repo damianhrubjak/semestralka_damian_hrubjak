@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminUserSeeder::class
         ]);
-        Product::factory(50)->create();
+        // Product::factory(50)->create();
     }
 }

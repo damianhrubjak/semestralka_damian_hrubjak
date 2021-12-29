@@ -14,17 +14,17 @@ class ProductCompactResource extends JsonResource
      */
     public function toArray($request)
     {
-        $files = [];
+        $image = [];
 
         if ($this->files->count() > 0) {
             $firstFile = $this->files->first();
-            $files = [
+            $image = [
                 'id' => $firstFile->id,
                 'name' => $firstFile->name,
                 'extension' => $firstFile->fileExtension->extension
             ];
         } else {
-            $files = (object)[];
+            $image = (object)[];
         }
 
         return [
@@ -33,8 +33,10 @@ class ProductCompactResource extends JsonResource
             'parameters' => $this->parameters,
             'condition' => $this->condition,
             'price' => $this->price,
-            'file' => $files,
-            'product_category' => $this->productCategory->category
+            'description' => $this->description,
+            'image' => $image,
+            'product_category' => $this->productCategory->category,
+            'product_category_id' => $this->productCategory->id
         ];
     }
 }

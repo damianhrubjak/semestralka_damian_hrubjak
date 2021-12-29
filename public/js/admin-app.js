@@ -2148,7 +2148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! body-scroll-lock */ "./node_modules/body-scroll-lock/lib/bodyScrollLock.esm.js");
+/* harmony import */ var tua_body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tua-body-scroll-lock */ "./node_modules/tua-body-scroll-lock/dist/tua-bsl.esm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -2216,7 +2216,7 @@ function Modal(props) {
     setVisibleState(true); //add class open-animation
 
     timeout1 = setTimeout(function () {
-      (0,body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__.enableBodyScroll)(modalWrapper.current);
+      (0,tua_body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__.lock)(modalWrapper.current);
       setOpenAnimationState(true);
     }, 50); //add class content-visible
 
@@ -2232,7 +2232,9 @@ function Modal(props) {
     setContentVisibleState(false); //remove class open-animation
 
     timeout1 = setTimeout(function () {
-      (0,body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__.disableBodyScroll)(modalWrapper.current);
+      (0,tua_body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__.unlock)(modalWrapper.current, {
+        reserveScrollBarGap: true
+      });
       setOpenAnimationState(false);
     }, props.modalContentOpenDuration + props.pauseBetweenAnimations); //class visible -> display none => hide modal
 
@@ -2245,7 +2247,7 @@ function Modal(props) {
     return [timeout1, timeout2];
   }, [modalState, props, unmountModal]);
   var unmountModal = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
-    (0,body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__.clearAllBodyScrollLocks)();
+    (0,tua_body_scroll_lock__WEBPACK_IMPORTED_MODULE_2__.clearBodyLocks)();
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     ref: modalWrapper,
@@ -2298,6 +2300,7 @@ Modal.defaultProps = {
   modalOpenDuration: 300,
   modalContentOpenDuration: 300,
   pauseBetweenAnimations: 200,
+  modalContentClassname: "",
   string: ""
 };
 Modal.whyDidYouRender = true;
@@ -2393,17 +2396,15 @@ function ProductCategories(props) {
 
   var fetchCategories = function fetchCategories() {
     setIsMounted(false);
-    setTimeout(function () {
-      axios__WEBPACK_IMPORTED_MODULE_3___default().get(props.fetchUrl).then(function (res) {
-        if (res.status === 200) {
-          setProductCategories(res.data);
-        }
-      })["catch"](function (err) {
-        console.log(err);
-      })["finally"](function () {
-        setIsMounted(true);
-      });
-    }, 300);
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(props.fetchUrl).then(function (res) {
+      if (res.status === 200) {
+        setProductCategories(res.data);
+      }
+    })["catch"](function (err) {
+      console.log(err);
+    })["finally"](function () {
+      setIsMounted(true);
+    });
   };
 
   var onSubmit = function onSubmit(data) {
@@ -2673,6 +2674,255 @@ ProductCategoryItem.propTypes = {
 
 /***/ }),
 
+/***/ "./resources/js/admin/react/products/DropZone.jsx":
+/*!********************************************************!*\
+  !*** ./resources/js/admin/react/products/DropZone.jsx ***!
+  \********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+function DropZone(props) {
+  var _props$filesObject;
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+    htmlFor: props.htmlFor,
+    className: "label-style w-full h-full transition bg-white border-dashed border-2 border-slate-500 p-4 rounded-md outline-none",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "flex justify-start items-center flex-wrap",
+      children: ((_props$filesObject = props.filesObject) === null || _props$filesObject === void 0 ? void 0 : _props$filesObject.length) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+          className: "font-bold font-secondary",
+          children: "Selected images:"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "w-full flex justify-center mt-2 items-center flex-wrap",
+          children: Array.from(props.filesObject).map(function (file, key) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+              className: "w-max py-1 px-3 rounded bg-blue-gray-200 ml-2 first:ml-0 mt-2",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+                className: "text-sm",
+                children: file.name
+              })
+            }, key);
+          })
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+        className: "font-bold font-secondary",
+        children: "Select image(s)"
+      })
+    })
+  });
+}
+
+DropZone.propTypes = {
+  htmlFor: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired),
+  filesObject: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object.isRequired)
+};
+/* harmony default export */ __webpack_exports__["default"] = (DropZone);
+
+/***/ }),
+
+/***/ "./resources/js/admin/react/products/Loader.jsx":
+/*!******************************************************!*\
+  !*** ./resources/js/admin/react/products/Loader.jsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function Loader(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "w-full flex justify-end transition-all duration-300 overflow-hidden ".concat(props.isLoading ? "mt-4 opacity-100 max-h-[4rem]" : "max-h-0 opacity-0", " "),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "w-8 h-8 text-3xl animate-spin flex justify-center items-center text-blue-gray-800",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+        className: "ri-loader-4-line"
+      })
+    })
+  });
+}
+
+Loader.propTypes = {
+  isLoading: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool.isRequired)
+};
+/* harmony default export */ __webpack_exports__["default"] = (Loader);
+
+/***/ }),
+
+/***/ "./resources/js/admin/react/products/ProductCategory.jsx":
+/*!***************************************************************!*\
+  !*** ./resources/js/admin/react/products/ProductCategory.jsx ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ProductItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductItem */ "./resources/js/admin/react/products/ProductItem.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+function ProductCategory(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "product-category-wrapper",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+      className: "product-category-wrapper-heading",
+      children: props.category
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "product-category-products-fetch",
+      children: props.products.map(function (product) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_ProductItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          product: product
+        }, product.id);
+      })
+    })]
+  });
+}
+
+ProductCategory.propTypes = {
+  category: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string.isRequired),
+  products: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().array.isRequired)
+};
+/* harmony default export */ __webpack_exports__["default"] = (ProductCategory);
+
+/***/ }),
+
+/***/ "./resources/js/admin/react/products/ProductContext.jsx":
+/*!**************************************************************!*\
+  !*** ./resources/js/admin/react/products/ProductContext.jsx ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var ProductContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext({
+  triggerEdit: function triggerEdit() {},
+  triggerDelete: function triggerDelete() {}
+});
+/* harmony default export */ __webpack_exports__["default"] = (ProductContext);
+
+/***/ }),
+
+/***/ "./resources/js/admin/react/products/ProductItem.jsx":
+/*!***********************************************************!*\
+  !*** ./resources/js/admin/react/products/ProductItem.jsx ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ProductContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductContext */ "./resources/js/admin/react/products/ProductContext.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+function ProductItem(props) {
+  var _props$product, _props$product$image, _props$product2, _props$product3, _props$product4, _props$product5, _props$product6;
+
+  var productContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_ProductContext__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "product-item",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "image",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+        src: location.origin + "/thumbnail-image/" + ((_props$product = props.product) === null || _props$product === void 0 ? void 0 : (_props$product$image = _props$product.image) === null || _props$product$image === void 0 ? void 0 : _props$product$image.id),
+        alt: "Image for ".concat((_props$product2 = props.product) === null || _props$product2 === void 0 ? void 0 : _props$product2.name)
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "text",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+        className: "product-item-name",
+        children: (_props$product3 = props.product) === null || _props$product3 === void 0 ? void 0 : _props$product3.name
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "product-item-text-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "group-name",
+          children: "Parameters:"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "group-content",
+          children: (_props$product4 = props.product) === null || _props$product4 === void 0 ? void 0 : _props$product4.parameters
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "product-item-text-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "group-name",
+          children: "Condition:"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "group-content",
+          children: (_props$product5 = props.product) === null || _props$product5 === void 0 ? void 0 : _props$product5.condition
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "product-item-text-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "group-name",
+          children: "Price:"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "group-content",
+          children: "".concat((_props$product6 = props.product) === null || _props$product6 === void 0 ? void 0 : _props$product6.price, "\u20AC")
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "actions",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "action-button hover:bg-amber-600",
+          onClick: function onClick() {
+            productContext.triggerEdit(props.product);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+            className: "ri-pencil-line"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "action-button hover:bg-rose-600",
+          onClick: function onClick() {
+            productContext.triggerDelete(props.product);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+            className: "ri-delete-bin-2-line"
+          })
+        })]
+      })]
+    })]
+  });
+}
+
+ProductItem.propTypes = {
+  product: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object.isRequired)
+};
+/* harmony default export */ __webpack_exports__["default"] = (ProductItem);
+
+/***/ }),
+
 /***/ "./resources/js/admin/react/products/Products.jsx":
 /*!********************************************************!*\
   !*** ./resources/js/admin/react/products/Products.jsx ***!
@@ -2685,321 +2935,563 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ProductCategory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProductCategory */ "./resources/js/admin/react/products/ProductCategory.jsx");
+/* harmony import */ var _ProductContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ProductContext */ "./resources/js/admin/react/products/ProductContext.jsx");
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Modal */ "./resources/js/admin/react/Modal.jsx");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
+/* harmony import */ var _FormError__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../FormError */ "./resources/js/admin/react/FormError.jsx");
+/* harmony import */ var _DropZone__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DropZone */ "./resources/js/admin/react/products/DropZone.jsx");
+/* harmony import */ var _Loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Loader */ "./resources/js/admin/react/products/Loader.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+var deleteProductId = 0;
 
 function Products(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {});
+  var _errorsEdit$name, _errorsEdit$name2, _errorsEdit$parameter, _errorsEdit$parameter2, _errorsEdit$condition, _errorsEdit$condition2, _errorsEdit$price, _errorsEdit$price2, _errorsEdit$product_c, _errorsEdit$product_c2, _errorsEdit$descripti, _errorsEdit$descripti2, _errors$name, _errors$name2, _errors$parameters, _errors$parameters2, _errors$condition, _errors$condition2, _errors$price, _errors$price2, _errors$product_categ, _errors$product_categ2, _errors$description, _errors$description2, _errors$images, _errors$images2;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      isVisible = _useState2[0],
+      setIsVisible = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      isLoading = _useState4[0],
+      setIsLoading = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      isAddModalOpened = _useState6[0],
+      setIsAddModalOpened = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isDeleteModalOpened = _useState8[0],
+      setIsDeleteModalOpened = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      isEditModalOpened = _useState10[0],
+      setIsEditModalOpened = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+      _useState12 = _slicedToArray(_useState11, 2),
+      grouppedProducts = _useState12[0],
+      setGrouppedPoducts = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      productCategories = _useState14[0],
+      setProductCategories = _useState14[1]; // this is used for adding
+
+
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useForm)({
+    mode: "onBlur"
+  }),
+      register = _useForm.register,
+      watch = _useForm.watch,
+      errors = _useForm.formState.errors,
+      handleSubmit = _useForm.handleSubmit,
+      reset = _useForm.reset; // this is used for editing
+
+
+  var _useForm2 = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useForm)({
+    mode: "onBlur"
+  }),
+      registerEdit = _useForm2.register,
+      errorsEdit = _useForm2.formState.errors,
+      resetEdit = _useForm2.reset,
+      watchEdit = _useForm2.watch,
+      handleSubmitEdit = _useForm2.handleSubmit;
+
+  var fileInputWatcher = watch("images");
+  var selectCategoryWatcher = watchEdit("product_category");
+
+  var handleEditProduct = function handleEditProduct(product) {
+    resetEdit(product);
+    setIsEditModalOpened(true);
+  };
+
+  var handleDeleteProduct = function handleDeleteProduct(product) {
+    deleteProductId = product.id;
+    setIsDeleteModalOpened(true);
+  };
+
+  var fetchProducts = function fetchProducts() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(props.productsFetchUrl).then(function (res) {
+      if (res.status === 200) {
+        setGrouppedPoducts(res.data.products);
+      }
+    })["catch"](function (err) {
+      console.log(err);
+    })["finally"](function () {
+      setIsVisible(true);
+    });
+  };
+
+  var fetchProductCategories = function fetchProductCategories() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(props.productCategoriesFetchUrl).then(function (res) {
+      if (res.status === 200) {
+        setProductCategories(res.data);
+      }
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  };
+
+  var onSubmitAdd = function onSubmitAdd(data) {
+    setIsLoading(true);
+    var formdata = new FormData();
+    formdata.append("name", data.name);
+    formdata.append("condition", data.condition);
+    formdata.append("parameters", data.parameters);
+    formdata.append("price", data.price);
+    formdata.append("description", data.description);
+    formdata.append("product_category_id", data.product_category_id);
+    Array.from(data.images).forEach(function (image, key) {
+      formdata.append("files[".concat(key, "]"), image);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("".concat(props.productsFetchUrl), formdata, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    }).then(function (res) {
+      console.log(res);
+
+      if (res.status === 200 && res.data.result === "success") {
+        setIsAddModalOpened(false);
+        setIsVisible(false);
+        setIsLoading(false);
+        reset(); // prevent blinking
+
+        setTimeout(function () {
+          fetchProducts();
+        }, 300);
+      }
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  };
+
+  var onSubmitEdit = function onSubmitEdit(data) {
+    setIsLoading(true);
+    axios__WEBPACK_IMPORTED_MODULE_3___default().put("".concat(props.productsFetchUrl, "/").concat(data.id), {
+      name: data.name,
+      parameters: data.parameters,
+      description: data.description,
+      condition: data.condition,
+      price: data.price,
+      product_category_id: data.product_category_id
+    }).then(function (res) {
+      if (res.status === 200 && res.data.result === "success") {
+        setIsEditModalOpened(false);
+        setIsLoading(false);
+        resetEdit();
+        setIsVisible(false); // prevent blinking
+
+        setTimeout(function () {
+          fetchProducts();
+        }, 300);
+      }
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  };
+
+  var deleteProduct = function deleteProduct() {
+    if (deleteProductId <= 0) {
+      return;
+    }
+
+    setIsLoading(true);
+    axios__WEBPACK_IMPORTED_MODULE_3___default()["delete"]("".concat(props.productsFetchUrl, "/").concat(deleteProductId)).then(function (res) {
+      if (res.status === 200 && res.data.result === "success") {
+        deleteProductId = 0;
+        setIsDeleteModalOpened(false);
+        setIsVisible(false);
+        setIsLoading(false); // prevent blinking
+
+        setTimeout(function () {
+          fetchProducts();
+        }, 300);
+      }
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    fetchProducts();
+    fetchProductCategories(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_ProductContext__WEBPACK_IMPORTED_MODULE_5__["default"].Provider, {
+      value: {
+        triggerEdit: handleEditProduct,
+        triggerDelete: handleDeleteProduct
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "transition duration-700 ".concat(isVisible ? "opacity-100" : "opacity-0"),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "page-header-with-button",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h1", {
+            className: "text-4xl font-secondary",
+            children: "Products"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+            className: "add-button-in-header",
+            onClick: function onClick() {
+              setIsAddModalOpened(true);
+            },
+            children: "New product"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "products-wrapper",
+          children: Object.keys(grouppedProducts).map(function (productCategory) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_ProductCategory__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              category: productCategory,
+              products: grouppedProducts[productCategory]
+            }, productCategory);
+          })
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Modal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      heading: "Are you sure?",
+      opened: isDeleteModalOpened,
+      onModalClose: function onModalClose(state) {
+        setIsDeleteModalOpened(state);
+      },
+      modalContentClassname: "modal-content-message-format",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "flex justify-between w-3/4 xs:w-1/2 sm:w-1/3 mx-auto",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+          className: "py-2 px-6 rounded-md bg-emerald-400",
+          onClick: function onClick() {
+            deleteProduct();
+          },
+          disabled: isLoading,
+          children: "Yes"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+          className: "py-2 px-6 rounded-md bg-rose-400",
+          onClick: function onClick() {
+            setIsDeleteModalOpened(false);
+          },
+          children: "No"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Loader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        isLoading: isLoading
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Modal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      heading: "Editting product",
+      opened: isEditModalOpened,
+      onModalClose: function onModalClose(state) {
+        setIsEditModalOpened(state);
+      },
+      className: "thin",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "modal-grid-two-cols",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread({
+          type: "hidden"
+        }, registerEdit("id", {
+          required: "This field is required",
+          valueAsNumber: true
+        }))), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread(_objectSpread({
+            type: "text",
+            className: "input-style product-style"
+          }, registerEdit("name", {
+            required: "This field is required"
+          })), {}, {
+            placeholder: "Product name"
+          })), ((_errorsEdit$name = errorsEdit.name) === null || _errorsEdit$name === void 0 ? void 0 : _errorsEdit$name.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errorsEdit === null || errorsEdit === void 0 ? void 0 : (_errorsEdit$name2 = errorsEdit.name) === null || _errorsEdit$name2 === void 0 ? void 0 : _errorsEdit$name2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread(_objectSpread({
+            type: "text",
+            className: "input-style product-style"
+          }, registerEdit("parameters", {
+            required: "This field is required"
+          })), {}, {
+            placeholder: "Product parameters"
+          })), ((_errorsEdit$parameter = errorsEdit.parameters) === null || _errorsEdit$parameter === void 0 ? void 0 : _errorsEdit$parameter.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errorsEdit === null || errorsEdit === void 0 ? void 0 : (_errorsEdit$parameter2 = errorsEdit.parameters) === null || _errorsEdit$parameter2 === void 0 ? void 0 : _errorsEdit$parameter2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("select", _objectSpread(_objectSpread({}, registerEdit("condition", {
+            required: "This field is required"
+          })), {}, {
+            className: "input-style product-style",
+            defaultValue: "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "",
+              disabled: true,
+              children: "Choose condition"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "New",
+              children: "New"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "Used",
+              children: "Used"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "Damaged",
+              children: "Damaged"
+            })]
+          })), ((_errorsEdit$condition = errorsEdit.condition) === null || _errorsEdit$condition === void 0 ? void 0 : _errorsEdit$condition.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errorsEdit === null || errorsEdit === void 0 ? void 0 : (_errorsEdit$condition2 = errorsEdit.condition) === null || _errorsEdit$condition2 === void 0 ? void 0 : _errorsEdit$condition2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread(_objectSpread({
+            type: "number",
+            step: ".01",
+            className: "input-style product-style"
+          }, registerEdit("price", {
+            required: "This field is required"
+          })), {}, {
+            placeholder: "Product price [€]"
+          })), ((_errorsEdit$price = errorsEdit.price) === null || _errorsEdit$price === void 0 ? void 0 : _errorsEdit$price.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errorsEdit === null || errorsEdit === void 0 ? void 0 : (_errorsEdit$price2 = errorsEdit.price) === null || _errorsEdit$price2 === void 0 ? void 0 : _errorsEdit$price2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("select", _objectSpread(_objectSpread({}, registerEdit("product_category_id", {
+            required: "This field is required"
+          })), {}, {
+            className: "input-style product-style",
+            defaultValue: selectCategoryWatcher !== undefined ? selectCategoryWatcher : "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "",
+              disabled: true,
+              children: "Choose category"
+            }), productCategories.map(function (category) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+                value: category.id,
+                children: category.category
+              }, category.id);
+            })]
+          })), ((_errorsEdit$product_c = errorsEdit.product_category_id) === null || _errorsEdit$product_c === void 0 ? void 0 : _errorsEdit$product_c.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errorsEdit === null || errorsEdit === void 0 ? void 0 : (_errorsEdit$product_c2 = errorsEdit.product_category_id) === null || _errorsEdit$product_c2 === void 0 ? void 0 : _errorsEdit$product_c2.message
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "input-control flex-col mt-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("textarea", _objectSpread(_objectSpread({
+          className: "input-style product-style h-40"
+        }, registerEdit("description")), {}, {
+          placeholder: "Product description"
+        })), ((_errorsEdit$descripti = errorsEdit.description) === null || _errorsEdit$descripti === void 0 ? void 0 : _errorsEdit$descripti.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          message: errorsEdit === null || errorsEdit === void 0 ? void 0 : (_errorsEdit$descripti2 = errorsEdit.description) === null || _errorsEdit$descripti2 === void 0 ? void 0 : _errorsEdit$descripti2.message
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: "w-full flex justify-end mt-8 ",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("button", {
+          type: "submit",
+          className: "modal-submit-btn edit mx-auto",
+          onClick: handleSubmitEdit(onSubmitEdit),
+          disabled: isLoading,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("i", {
+            className: "ri-pencil-fill"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            className: "ml-4 text-white",
+            children: "Edit"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Loader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        isLoading: isLoading
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Modal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      heading: "New product",
+      opened: isAddModalOpened,
+      onModalClose: function onModalClose(state) {
+        setIsAddModalOpened(state);
+      },
+      className: "thin",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "modal-grid-two-cols",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread(_objectSpread({
+            type: "text",
+            className: "input-style product-style"
+          }, register("name", {
+            required: "This field is required"
+          })), {}, {
+            placeholder: "Product name"
+          })), ((_errors$name = errors.name) === null || _errors$name === void 0 ? void 0 : _errors$name.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errors === null || errors === void 0 ? void 0 : (_errors$name2 = errors.name) === null || _errors$name2 === void 0 ? void 0 : _errors$name2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread(_objectSpread({
+            type: "text",
+            className: "input-style product-style"
+          }, register("parameters", {
+            required: "This field is required"
+          })), {}, {
+            placeholder: "Product parameters"
+          })), ((_errors$parameters = errors.parameters) === null || _errors$parameters === void 0 ? void 0 : _errors$parameters.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errors === null || errors === void 0 ? void 0 : (_errors$parameters2 = errors.parameters) === null || _errors$parameters2 === void 0 ? void 0 : _errors$parameters2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("select", _objectSpread(_objectSpread({}, register("condition", {
+            required: "This field is required"
+          })), {}, {
+            className: "input-style product-style",
+            defaultValue: "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "",
+              disabled: true,
+              children: "Choose condition"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "New",
+              children: "New"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "Used",
+              children: "Used"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "Damaged",
+              children: "Damaged"
+            })]
+          })), ((_errors$condition = errors.condition) === null || _errors$condition === void 0 ? void 0 : _errors$condition.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errors === null || errors === void 0 ? void 0 : (_errors$condition2 = errors.condition) === null || _errors$condition2 === void 0 ? void 0 : _errors$condition2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread(_objectSpread({
+            type: "number",
+            step: ".01",
+            className: "input-style product-style"
+          }, register("price", {
+            required: "This field is required",
+            valueAsNumber: true
+          })), {}, {
+            placeholder: "Product price [€]"
+          })), ((_errors$price = errors.price) === null || _errors$price === void 0 ? void 0 : _errors$price.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errors === null || errors === void 0 ? void 0 : (_errors$price2 = errors.price) === null || _errors$price2 === void 0 ? void 0 : _errors$price2.message
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "input-control flex-col",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("select", _objectSpread(_objectSpread({}, register("product_category_id", {
+            required: "This field is required",
+            valueAsNumber: true
+          })), {}, {
+            className: "input-style product-style",
+            defaultValue: selectCategoryWatcher !== undefined ? selectCategoryWatcher : "",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+              value: "",
+              disabled: true,
+              children: "Choose category"
+            }), productCategories.map(function (category) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("option", {
+                value: category.id,
+                children: category.category
+              }, category.id);
+            })]
+          })), ((_errors$product_categ = errors.product_category_id) === null || _errors$product_categ === void 0 ? void 0 : _errors$product_categ.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            message: errors === null || errors === void 0 ? void 0 : (_errors$product_categ2 = errors.product_category_id) === null || _errors$product_categ2 === void 0 ? void 0 : _errors$product_categ2.message
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "input-control flex-col mt-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("textarea", _objectSpread(_objectSpread({
+          className: "input-style product-style h-40"
+        }, register("description", {
+          required: "This field is required"
+        })), {}, {
+          placeholder: "Product description"
+        })), ((_errors$description = errors.description) === null || _errors$description === void 0 ? void 0 : _errors$description.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          message: errors === null || errors === void 0 ? void 0 : (_errors$description2 = errors.description) === null || _errors$description2 === void 0 ? void 0 : _errors$description2.message
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "input-control flex-col mt-4 relative  ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_DropZone__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          htmlFor: "file-input",
+          filesObject: fileInputWatcher !== undefined ? fileInputWatcher : {}
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", _objectSpread(_objectSpread({
+          tabIndex: "0",
+          className: "absolute top-0 w-full h-full opacity-0 cursor-pointer",
+          type: "file"
+        }, register("images", {
+          required: "This field is required"
+        })), {}, {
+          id: "file-input",
+          placeholder: "Product images",
+          multiple: true
+        })), ((_errors$images = errors.images) === null || _errors$images === void 0 ? void 0 : _errors$images.message.length) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FormError__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          message: errors === null || errors === void 0 ? void 0 : (_errors$images2 = errors.images) === null || _errors$images2 === void 0 ? void 0 : _errors$images2.message
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: "w-full flex justify-end mt-8 ",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("button", {
+          type: "submit",
+          className: "modal-submit-btn mx-auto",
+          onClick: handleSubmit(onSubmitAdd),
+          disabled: isLoading,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("i", {
+            className: "ri-check-line"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            className: "text-white",
+            children: "Add new product"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Loader__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        isLoading: isLoading
+      })]
+    })]
+  });
 }
 
-Products.propTypes = {};
+Products.propTypes = {
+  productsFetchUrl: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string.isRequired),
+  productCategoriesFetchUrl: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string.isRequired)
+};
 /* harmony default export */ __webpack_exports__["default"] = (Products); // Mount to HTML
 
 var productsEl = document.querySelector("#products-react-mount");
 
 if (productsEl) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Products, {
-    fetchUrl: productsEl.dataset.fetchUrl
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Products, {
+    productsFetchUrl: productsEl.dataset.productsFetchUrl,
+    productCategoriesFetchUrl: productsEl.dataset.productCategoriesFetchUrl
   }), productsEl);
 }
-
-/***/ }),
-
-/***/ "./node_modules/body-scroll-lock/lib/bodyScrollLock.esm.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/body-scroll-lock/lib/bodyScrollLock.esm.js ***!
-  \*****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "disableBodyScroll": function() { return /* binding */ disableBodyScroll; },
-/* harmony export */   "clearAllBodyScrollLocks": function() { return /* binding */ clearAllBodyScrollLocks; },
-/* harmony export */   "enableBodyScroll": function() { return /* binding */ enableBodyScroll; }
-/* harmony export */ });
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-// Older browsers don't support event options, feature detect it.
-
-// Adopted and modified solution from Bohdan Didukh (2017)
-// https://stackoverflow.com/questions/41594997/ios-10-safari-prevent-scrolling-behind-a-fixed-overlay-and-maintain-scroll-posi
-
-var hasPassiveEvents = false;
-if (typeof window !== 'undefined') {
-  var passiveTestOptions = {
-    get passive() {
-      hasPassiveEvents = true;
-      return undefined;
-    }
-  };
-  window.addEventListener('testPassive', null, passiveTestOptions);
-  window.removeEventListener('testPassive', null, passiveTestOptions);
-}
-
-var isIosDevice = typeof window !== 'undefined' && window.navigator && window.navigator.platform && (/iP(ad|hone|od)/.test(window.navigator.platform) || window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
-
-
-var locks = [];
-var documentListenerAdded = false;
-var initialClientY = -1;
-var previousBodyOverflowSetting = void 0;
-var previousBodyPosition = void 0;
-var previousBodyPaddingRight = void 0;
-
-// returns true if `el` should be allowed to receive touchmove events.
-var allowTouchMove = function allowTouchMove(el) {
-  return locks.some(function (lock) {
-    if (lock.options.allowTouchMove && lock.options.allowTouchMove(el)) {
-      return true;
-    }
-
-    return false;
-  });
-};
-
-var preventDefault = function preventDefault(rawEvent) {
-  var e = rawEvent || window.event;
-
-  // For the case whereby consumers adds a touchmove event listener to document.
-  // Recall that we do document.addEventListener('touchmove', preventDefault, { passive: false })
-  // in disableBodyScroll - so if we provide this opportunity to allowTouchMove, then
-  // the touchmove event on document will break.
-  if (allowTouchMove(e.target)) {
-    return true;
-  }
-
-  // Do not prevent if the event has more than one touch (usually meaning this is a multi touch gesture like pinch to zoom).
-  if (e.touches.length > 1) return true;
-
-  if (e.preventDefault) e.preventDefault();
-
-  return false;
-};
-
-var setOverflowHidden = function setOverflowHidden(options) {
-  // If previousBodyPaddingRight is already set, don't set it again.
-  if (previousBodyPaddingRight === undefined) {
-    var _reserveScrollBarGap = !!options && options.reserveScrollBarGap === true;
-    var scrollBarGap = window.innerWidth - document.documentElement.clientWidth;
-
-    if (_reserveScrollBarGap && scrollBarGap > 0) {
-      var computedBodyPaddingRight = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-right'), 10);
-      previousBodyPaddingRight = document.body.style.paddingRight;
-      document.body.style.paddingRight = computedBodyPaddingRight + scrollBarGap + 'px';
-    }
-  }
-
-  // If previousBodyOverflowSetting is already set, don't set it again.
-  if (previousBodyOverflowSetting === undefined) {
-    previousBodyOverflowSetting = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-  }
-};
-
-var restoreOverflowSetting = function restoreOverflowSetting() {
-  if (previousBodyPaddingRight !== undefined) {
-    document.body.style.paddingRight = previousBodyPaddingRight;
-
-    // Restore previousBodyPaddingRight to undefined so setOverflowHidden knows it
-    // can be set again.
-    previousBodyPaddingRight = undefined;
-  }
-
-  if (previousBodyOverflowSetting !== undefined) {
-    document.body.style.overflow = previousBodyOverflowSetting;
-
-    // Restore previousBodyOverflowSetting to undefined
-    // so setOverflowHidden knows it can be set again.
-    previousBodyOverflowSetting = undefined;
-  }
-};
-
-var setPositionFixed = function setPositionFixed() {
-  return window.requestAnimationFrame(function () {
-    // If previousBodyPosition is already set, don't set it again.
-    if (previousBodyPosition === undefined) {
-      previousBodyPosition = {
-        position: document.body.style.position,
-        top: document.body.style.top,
-        left: document.body.style.left
-      };
-
-      // Update the dom inside an animation frame 
-      var _window = window,
-          scrollY = _window.scrollY,
-          scrollX = _window.scrollX,
-          innerHeight = _window.innerHeight;
-
-      document.body.style.position = 'fixed';
-      document.body.style.top = -scrollY;
-      document.body.style.left = -scrollX;
-
-      setTimeout(function () {
-        return window.requestAnimationFrame(function () {
-          // Attempt to check if the bottom bar appeared due to the position change
-          var bottomBarHeight = innerHeight - window.innerHeight;
-          if (bottomBarHeight && scrollY >= innerHeight) {
-            // Move the content further up so that the bottom bar doesn't hide it
-            document.body.style.top = -(scrollY + bottomBarHeight);
-          }
-        });
-      }, 300);
-    }
-  });
-};
-
-var restorePositionSetting = function restorePositionSetting() {
-  if (previousBodyPosition !== undefined) {
-    // Convert the position from "px" to Int
-    var y = -parseInt(document.body.style.top, 10);
-    var x = -parseInt(document.body.style.left, 10);
-
-    // Restore styles
-    document.body.style.position = previousBodyPosition.position;
-    document.body.style.top = previousBodyPosition.top;
-    document.body.style.left = previousBodyPosition.left;
-
-    // Restore scroll
-    window.scrollTo(x, y);
-
-    previousBodyPosition = undefined;
-  }
-};
-
-// https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight#Problems_and_solutions
-var isTargetElementTotallyScrolled = function isTargetElementTotallyScrolled(targetElement) {
-  return targetElement ? targetElement.scrollHeight - targetElement.scrollTop <= targetElement.clientHeight : false;
-};
-
-var handleScroll = function handleScroll(event, targetElement) {
-  var clientY = event.targetTouches[0].clientY - initialClientY;
-
-  if (allowTouchMove(event.target)) {
-    return false;
-  }
-
-  if (targetElement && targetElement.scrollTop === 0 && clientY > 0) {
-    // element is at the top of its scroll.
-    return preventDefault(event);
-  }
-
-  if (isTargetElementTotallyScrolled(targetElement) && clientY < 0) {
-    // element is at the bottom of its scroll.
-    return preventDefault(event);
-  }
-
-  event.stopPropagation();
-  return true;
-};
-
-var disableBodyScroll = function disableBodyScroll(targetElement, options) {
-  // targetElement must be provided
-  if (!targetElement) {
-    // eslint-disable-next-line no-console
-    console.error('disableBodyScroll unsuccessful - targetElement must be provided when calling disableBodyScroll on IOS devices.');
-    return;
-  }
-
-  // disableBodyScroll must not have been called on this targetElement before
-  if (locks.some(function (lock) {
-    return lock.targetElement === targetElement;
-  })) {
-    return;
-  }
-
-  var lock = {
-    targetElement: targetElement,
-    options: options || {}
-  };
-
-  locks = [].concat(_toConsumableArray(locks), [lock]);
-
-  if (isIosDevice) {
-    setPositionFixed();
-  } else {
-    setOverflowHidden(options);
-  }
-
-  if (isIosDevice) {
-    targetElement.ontouchstart = function (event) {
-      if (event.targetTouches.length === 1) {
-        // detect single touch.
-        initialClientY = event.targetTouches[0].clientY;
-      }
-    };
-    targetElement.ontouchmove = function (event) {
-      if (event.targetTouches.length === 1) {
-        // detect single touch.
-        handleScroll(event, targetElement);
-      }
-    };
-
-    if (!documentListenerAdded) {
-      document.addEventListener('touchmove', preventDefault, hasPassiveEvents ? { passive: false } : undefined);
-      documentListenerAdded = true;
-    }
-  }
-};
-
-var clearAllBodyScrollLocks = function clearAllBodyScrollLocks() {
-  if (isIosDevice) {
-    // Clear all locks ontouchstart/ontouchmove handlers, and the references.
-    locks.forEach(function (lock) {
-      lock.targetElement.ontouchstart = null;
-      lock.targetElement.ontouchmove = null;
-    });
-
-    if (documentListenerAdded) {
-      document.removeEventListener('touchmove', preventDefault, hasPassiveEvents ? { passive: false } : undefined);
-      documentListenerAdded = false;
-    }
-
-    // Reset initial clientY.
-    initialClientY = -1;
-  }
-
-  if (isIosDevice) {
-    restorePositionSetting();
-  } else {
-    restoreOverflowSetting();
-  }
-
-  locks = [];
-};
-
-var enableBodyScroll = function enableBodyScroll(targetElement) {
-  if (!targetElement) {
-    // eslint-disable-next-line no-console
-    console.error('enableBodyScroll unsuccessful - targetElement must be provided when calling enableBodyScroll on IOS devices.');
-    return;
-  }
-
-  locks = locks.filter(function (lock) {
-    return lock.targetElement !== targetElement;
-  });
-
-  if (isIosDevice) {
-    targetElement.ontouchstart = null;
-    targetElement.ontouchmove = null;
-
-    if (documentListenerAdded && locks.length === 0) {
-      document.removeEventListener('touchmove', preventDefault, hasPassiveEvents ? { passive: false } : undefined);
-      documentListenerAdded = false;
-    }
-  }
-
-  if (isIosDevice) {
-    restorePositionSetting();
-  } else {
-    restoreOverflowSetting();
-  }
-};
-
-
 
 /***/ }),
 
@@ -37107,6 +37599,256 @@ if (false) {} else {
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/scheduler-tracing.development.js */ "./node_modules/scheduler/cjs/scheduler-tracing.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/tua-body-scroll-lock/dist/tua-bsl.esm.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/tua-body-scroll-lock/dist/tua-bsl.esm.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "clearBodyLocks": function() { return /* binding */ clearBodyLocks; },
+/* harmony export */   "lock": function() { return /* binding */ lock; },
+/* harmony export */   "unlock": function() { return /* binding */ unlock; }
+/* harmony export */ });
+/**
+ * tua-body-scroll-lock v1.2.1
+ * (c) 2021 Evinma, BuptStEve
+ * @license MIT
+ */
+
+var isServer = function isServer() {
+  return typeof window === 'undefined';
+};
+var detectOS = function detectOS(ua) {
+  ua = ua || navigator.userAgent;
+  var ipad = /(iPad).*OS\s([\d_]+)/.test(ua);
+  var iphone = !ipad && /(iPhone\sOS)\s([\d_]+)/.test(ua);
+  var android = /(Android);?[\s/]+([\d.]+)?/.test(ua);
+  var ios = iphone || ipad;
+  return {
+    ios: ios,
+    android: android
+  };
+};
+function getEventListenerOptions(options) {
+  /* istanbul ignore if */
+  if (isServer()) return false;
+
+  if (!options) {
+    throw new Error('options must be provided');
+  }
+
+  var isSupportOptions = false;
+  var listenerOptions = {
+    get passive() {
+      isSupportOptions = true;
+      return;
+    }
+
+  };
+  /* istanbul ignore next */
+
+  var noop = function noop() {};
+
+  var testEvent = '__TUA_BSL_TEST_PASSIVE__';
+  window.addEventListener(testEvent, noop, listenerOptions);
+  window.removeEventListener(testEvent, noop, listenerOptions);
+  var capture = options.capture;
+  /* istanbul ignore next */
+
+  return isSupportOptions ? options : typeof capture !== 'undefined' ? capture : false;
+}
+
+var lockedNum = 0;
+var initialClientY = 0;
+var initialClientX = 0;
+var unLockCallback = null;
+var documentListenerAdded = false;
+var lockedElements = [];
+var eventListenerOptions = getEventListenerOptions({
+  passive: false
+});
+var supportsNativeSmoothScroll = !isServer() && 'scrollBehavior' in document.documentElement.style;
+
+var setOverflowHiddenPc = function setOverflowHiddenPc() {
+  var $body = document.body;
+  var bodyStyle = Object.assign({}, $body.style);
+  var scrollBarWidth = window.innerWidth - $body.clientWidth;
+  $body.style.overflow = 'hidden';
+  $body.style.boxSizing = 'border-box';
+  $body.style.paddingRight = "".concat(scrollBarWidth, "px");
+  return function () {
+    ['overflow', 'boxSizing', 'paddingRight'].forEach(function (x) {
+      $body.style[x] = bodyStyle[x] || '';
+    });
+  };
+};
+
+var setOverflowHiddenMobile = function setOverflowHiddenMobile() {
+  var $html = document.documentElement;
+  var $body = document.body;
+  var scrollTop = $html.scrollTop || $body.scrollTop;
+  var htmlStyle = Object.assign({}, $html.style);
+  var bodyStyle = Object.assign({}, $body.style);
+  $html.style.height = '100%';
+  $html.style.overflow = 'hidden';
+  $body.style.top = "-".concat(scrollTop, "px");
+  $body.style.width = '100%';
+  $body.style.height = 'auto';
+  $body.style.position = 'fixed';
+  $body.style.overflow = 'hidden';
+  return function () {
+    $html.style.height = htmlStyle.height || '';
+    $html.style.overflow = htmlStyle.overflow || '';
+    ['top', 'width', 'height', 'overflow', 'position'].forEach(function (x) {
+      $body.style[x] = bodyStyle[x] || '';
+    });
+    supportsNativeSmoothScroll ? window.scrollTo({
+      top: scrollTop,
+      // @ts-ignore
+      behavior: 'instant'
+    }) : window.scrollTo(0, scrollTop);
+  };
+};
+
+var preventDefault = function preventDefault(event) {
+  if (!event.cancelable) return;
+  event.preventDefault();
+};
+
+var handleScroll = function handleScroll(event, targetElement) {
+  if (targetElement) {
+    var scrollTop = targetElement.scrollTop,
+        scrollLeft = targetElement.scrollLeft,
+        scrollWidth = targetElement.scrollWidth,
+        scrollHeight = targetElement.scrollHeight,
+        clientWidth = targetElement.clientWidth,
+        clientHeight = targetElement.clientHeight;
+    var clientX = event.targetTouches[0].clientX - initialClientX;
+    var clientY = event.targetTouches[0].clientY - initialClientY;
+    var isVertical = Math.abs(clientY) > Math.abs(clientX);
+    var isOnTop = clientY > 0 && scrollTop === 0;
+    var isOnLeft = clientX > 0 && scrollLeft === 0;
+    var isOnRight = clientX < 0 && scrollLeft + clientWidth + 1 >= scrollWidth;
+    var isOnBottom = clientY < 0 && scrollTop + clientHeight + 1 >= scrollHeight;
+
+    if (isVertical && (isOnTop || isOnBottom) || !isVertical && (isOnLeft || isOnRight)) {
+      return preventDefault(event);
+    }
+  }
+
+  event.stopPropagation();
+  return true;
+};
+
+var checkTargetElement = function checkTargetElement(targetElement) {
+  if (targetElement) return;
+  if (targetElement === null) return;
+  if (false) {}
+  console.warn("If scrolling is also required in the floating layer, " + "the target element must be provided.");
+};
+
+var lock = function lock(targetElement) {
+  if (isServer()) return;
+  checkTargetElement(targetElement);
+
+  if (detectOS().ios) {
+    // iOS
+    if (targetElement) {
+      var elementArray = Array.isArray(targetElement) ? targetElement : [targetElement];
+      elementArray.forEach(function (element) {
+        if (element && lockedElements.indexOf(element) === -1) {
+          element.ontouchstart = function (event) {
+            initialClientY = event.targetTouches[0].clientY;
+            initialClientX = event.targetTouches[0].clientX;
+          };
+
+          element.ontouchmove = function (event) {
+            if (event.targetTouches.length !== 1) return;
+            handleScroll(event, element);
+          };
+
+          lockedElements.push(element);
+        }
+      });
+    }
+
+    if (!documentListenerAdded) {
+      document.addEventListener('touchmove', preventDefault, eventListenerOptions);
+      documentListenerAdded = true;
+    }
+  } else if (lockedNum <= 0) {
+    unLockCallback = detectOS().android ? setOverflowHiddenMobile() : setOverflowHiddenPc();
+  }
+
+  lockedNum += 1;
+};
+
+var unlock = function unlock(targetElement) {
+  if (isServer()) return;
+  checkTargetElement(targetElement);
+  lockedNum -= 1;
+  if (lockedNum > 0) return;
+
+  if (!detectOS().ios && typeof unLockCallback === 'function') {
+    unLockCallback();
+    return;
+  } // iOS
+
+
+  if (targetElement) {
+    var elementArray = Array.isArray(targetElement) ? targetElement : [targetElement];
+    elementArray.forEach(function (element) {
+      var index = lockedElements.indexOf(element);
+
+      if (index !== -1) {
+        element.ontouchmove = null;
+        element.ontouchstart = null;
+        lockedElements.splice(index, 1);
+      }
+    });
+  }
+
+  if (documentListenerAdded) {
+    document.removeEventListener('touchmove', preventDefault, eventListenerOptions);
+    documentListenerAdded = false;
+  }
+};
+
+var clearBodyLocks = function clearBodyLocks() {
+  if (isServer()) return;
+  lockedNum = 0;
+
+  if (!detectOS().ios && typeof unLockCallback === 'function') {
+    unLockCallback();
+    return;
+  } // IOS
+
+
+  if (lockedElements.length) {
+    // clear events
+    var element = lockedElements.pop();
+
+    while (element) {
+      element.ontouchmove = null;
+      element.ontouchstart = null;
+      element = lockedElements.pop();
+    }
+  }
+
+  if (documentListenerAdded) {
+    document.removeEventListener('touchmove', preventDefault, eventListenerOptions);
+    documentListenerAdded = false;
+  }
+};
+
+
 
 
 /***/ }),

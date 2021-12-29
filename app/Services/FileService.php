@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Models\File;
 use App\Models\FileExtension;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Contracts\Cache\Store;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -33,12 +34,14 @@ class FileService
     {
         // returns absolute path to folder, including c:/.../laravel/storage/app/ etc.
         $fullFolder = Storage::path($folderToStore);
+
         $extension = strtolower($fileToBeUploaded->getClientOriginalExtension());
         $fileData = [
             $foreignKeyCollumn => $foreignKeyId,
             'name' => $fileToBeUploaded->getClientOriginalName(),
             'file_name' => empty($fileName) ? $this->fileNameHash($extension) : $fileName,
-            'folder_name' => $folderToStore
+            'folder_name' => $folderToStore,
+            'file_extension_id' => FileExtension::where('extension', 'like', $extension)->get()->first()->id
         ];
 
         $fileToBeUploaded->storeAs(
@@ -58,10 +61,6 @@ class FileService
         }
 
         return File::create($fileData);
-        // try {
-        // } catch (\Exception $e) {
-        //     throw $e;
-        // }
     }
 
     public function fileNameHash($extension)

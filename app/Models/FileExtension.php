@@ -16,4 +16,10 @@ class FileExtension extends Model
     {
         return $this->hasMany(File::class);
     }
+
+    public static function getAllExtensionsForMimeValidation()
+    {
+        $fileExtensions = FileExtension::all()->pluck('extension')->toArray();
+        return implode(',', $fileExtensions);
+    }
 }

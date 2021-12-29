@@ -34,21 +34,19 @@ function ProductCategories(props) {
 
     const fetchCategories = () => {
         setIsMounted(false);
-        setTimeout(() => {
-            axios
-                .get(props.fetchUrl)
-                .then((res) => {
-                    if (res.status === 200) {
-                        setProductCategories(res.data);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    setIsMounted(true);
-                });
-        }, 300);
+        axios
+            .get(props.fetchUrl)
+            .then((res) => {
+                if (res.status === 200) {
+                    setProductCategories(res.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                setIsMounted(true);
+            });
     };
 
     const onSubmit = (data) => {

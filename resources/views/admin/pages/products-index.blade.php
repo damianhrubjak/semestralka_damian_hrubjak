@@ -4,6 +4,7 @@
 
 @section('admin-content')
 
-<div id="products-react-mount" data-fetch-url="{{ route('api.products.index') }}"></div>
+<div id="products-react-mount" data-products-fetch-url="{{ route('api.products.index') }}"
+    data-product-categories-fetch-url="{{ route('api.product-categories.index') }}"></div>
 
 @endsection

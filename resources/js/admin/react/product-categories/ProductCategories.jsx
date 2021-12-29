@@ -28,9 +28,6 @@ function ProductCategories(props) {
         fetchCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    useEffect(() => {
-        console.log(errors);
-    }, [errors]);
 
     const fetchCategories = () => {
         setIsMounted(false);
@@ -38,14 +35,12 @@ function ProductCategories(props) {
             .get(props.fetchUrl)
             .then((res) => {
                 if (res.status === 200) {
+                    setIsMounted(true);
                     setProductCategories(res.data);
                 }
             })
             .catch((err) => {
                 console.log(err);
-            })
-            .finally(() => {
-                setIsMounted(true);
             });
     };
 
@@ -53,7 +48,7 @@ function ProductCategories(props) {
         axios
             .post(`${props.fetchUrl}`, { category: data.category })
             .then((res) => {
-                if (res.status === 200) fetchCategories(true);
+                if (res.status === 200) fetchCategories();
             })
             .catch((err) => {
                 console.log(err?.response);
@@ -67,7 +62,7 @@ function ProductCategories(props) {
         axios
             .delete(`${props.fetchUrl}/${id}`)
             .then((res) => {
-                if (res.status === 200) fetchCategories(true);
+                if (res.status === 200) fetchCategories();
             })
             .catch((err) => {
                 console.log(err?.response);

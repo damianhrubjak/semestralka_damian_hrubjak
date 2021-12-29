@@ -11,8 +11,8 @@
         <h2 class="text-4xl md:text-5xl font-bold font-secondary text-right">{{ $product->name }}</h2>
         <div class="w-40 h-1 mt-4 ml-auto mr-0 bg-indigo-500 rounded-3xl z-10"></div>
 
-        <div class="flex items-start mt-16">
-            <div class="left-sidebar p-4 bg-violet-100 rounded-md w-72">
+        <div class="flex items-start flex-col sm:flex-row mt-8 sm:mt-16">
+            <div class="left-sidebar p-4 bg-violet-100 rounded-md w-full sm:w-72">
                 <div class="parameters">
                     <div class="parameter mt-4 first:mt-0">
                         <p class="w-24">
@@ -48,26 +48,25 @@
                     </div>
                 </div>
             </div>
-            <div class="w-[calc(100%-18rem)] ml-8">
+            <div class="w-full sm:w-[calc(100%-18rem)] mt-4 sm:mt-0 sm:ml-8">
                 <div class="parameter mt-4 first:mt-0">
                     <p class="font-bold">
                         Description:
                     </p>
                     <p class=" text-blue-gray-800 text-lg mt-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis possimus, nam similique,
-                        sequi ipsum quibusdam aspernatur ut nihil voluptatibus non vitae ad natus provident esse neque
-                        nulla! Est, perspiciatis voluptate.
+                        {{ $product->description }}
                     </p>
                 </div>
             </div>
         </div>
 
         <div class="gallery mt-16">
-            <h2 class="product-category-heading">Gallery</h2>
-            <div class="grid grid-cols-3 gap-4">
+            <h2 class="product-category-heading mb-2 md:mb-4">Gallery</h2>
+            <div class="grid xs:grid-cols-2 md:grid-cols-3 gap-4">
                 @foreach ($product->files as $file)
-                <a href="{{ route('files.show-file-full-resolution',$file->id) }}">
-                    <img src="{{ route('files.show-file',$file->id) }}" alt="" class="w-full h-64 object-cover">
+                <a data-fslightbox href="{{ route('files.show-file-full-resolution',$file->id) }}">
+                    <img src="{{ route('files.show-file',$file->id) }}" alt=""
+                        class="w-full h-64 object-cover rounded-md">
                 </a>
                 @endforeach
             </div>
@@ -75,12 +74,12 @@
     </div>
 </div>
 
-
-
-
-
 @include('includes.brands-we-sell')
 @include('includes.why-choose-us')
 
 
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/fslightbox.js') }}"></script>
 @endsection

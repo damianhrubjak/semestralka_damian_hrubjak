@@ -13,6 +13,7 @@ const mix = require("laravel-mix");
 
 mix.js("resources/js/app.js", "public/js")
     .js("resources/js/form-validation.js", "public/js")
+    .js("resources/js/fslightbox.js", "public/js")
     .postCss("resources/css/tailwind.css", "public/css/app.css", [
         require("tailwindcss"),
     ])

@@ -12,7 +12,7 @@
                     <div class="nav-link-line"></div>
                     <a class="nav-link" href="{{ route('fe-pages.home') }}">Home</a>
                 </div>
-                <div class="nav-item {{ Request::routeIs('fe-pages.products.index-fe') ? 'active' : "" }}">
+                <div class="nav-item {{ Request::routeIs('fe-pages.products*') ? 'active' : "" }}">
                     <div class="nav-link-line"></div>
                     <a class="nav-link" href="{{ route('fe-pages.products.index-fe') }}">Products</a>
                 </div>

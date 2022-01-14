@@ -25,22 +25,34 @@ function ProductCategories(props) {
     });
 
     useEffect(() => {
-        fetchCategories();
+        fetchCategoriesWithAnimation(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const fetchCategoriesWithAnimation = (initialLoad = false) => {
+        if (!initialLoad) {
+            setIsMounted(false);
+            setTimeout(() => {
+                fetchCategories();
+            }, 500);
+        } else {
+            fetchCategories();
+        }
+    };
+
     const fetchCategories = () => {
-        setIsMounted(false);
         axios
             .get(props.fetchUrl)
             .then((res) => {
                 if (res.status === 200) {
-                    setIsMounted(true);
                     setProductCategories(res.data);
                 }
             })
             .catch((err) => {
                 console.log(err);
+            })
+            .finally(() => {
+                setIsMounted(true);
             });
     };
 
@@ -48,7 +60,7 @@ function ProductCategories(props) {
         axios
             .post(`${props.fetchUrl}`, { category: data.category })
             .then((res) => {
-                if (res.status === 200) fetchCategories();
+                if (res.status === 200) fetchCategoriesWithAnimation();
             })
             .catch((err) => {
                 console.log(err?.response);
@@ -62,7 +74,7 @@ function ProductCategories(props) {
         axios
             .delete(`${props.fetchUrl}/${id}`)
             .then((res) => {
-                if (res.status === 200) fetchCategories();
+                if (res.status === 200) fetchCategoriesWithAnimation();
             })
             .catch((err) => {
                 console.log(err?.response);
@@ -73,7 +85,7 @@ function ProductCategories(props) {
         <div
             className={`${
                 isMounted ? "opacity-100" : "opacity-0"
-            } transition duration-700`}
+            } transition duration-500`}
         >
             <div className="page-header-with-button">
                 <h1 className="text-4xl font-secondary">Product Categories</h1>
